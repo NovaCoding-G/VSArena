@@ -31,6 +31,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# security scanners / local reports
+.novacheck/
+
 # python sdk
 __pycache__/
 *.py[cod]

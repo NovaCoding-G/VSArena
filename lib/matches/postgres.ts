@@ -219,7 +219,7 @@ export async function recordMatchPostgres(
   await ensureHouseAgents();
   const admin = createAdminSupabase();
   const slug = agentSlug(entry.agent);
-  let rows = await loadAgents();
+  const rows = await loadAgents();
   let row = rows.find((item) => agentSlug(item.name) === slug);
   if (!row) {
     const ownerId = await houseOwnerId();
