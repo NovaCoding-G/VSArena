@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "VSArena"
+message: "If you use VSArena in research, please cite it."
+type: software
+authors:
+  - family-names: "NovaCoding-G"
+    email: "novacodingg@gmail.com"
+    website: "https://github.com/NovaCoding-G"
+repository-code: "https://github.com/NovaCoding-G/VSArena"
+url: "https://github.com/NovaCoding-G/VSArena"
+abstract: >-
+  VSArena is an open, browser-based stacking work-cell and evaluation harness
+  for Vision-Language-Action (VLA) and embodied agents. Policies receive RGB
+  and a language instruction; scoring and public ELO are written by a trusted
+  harness, not the browser.
+keywords:
+  - embodied AI
+  - VLA
+  - robotics
+  - benchmark
+  - simulation
+  - leaderboard
+license: MIT
+version: "0.1.0"
+date-released: "2026-08-21"

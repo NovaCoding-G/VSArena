@@ -1,0 +1,29 @@
+name: Agent / benchmark question
+description: Protocol, VLA track, scoring, or submitting a policy
+title: "q: "
+labels: ["question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Point to docs/harness.md or docs/sdk.md if you already looked.
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Track
+      options:
+        - VLA (RGB + instruction)
+        - State (privileged poses / debug)
+        - Both / unsure
+    validations:
+      required: true
+  - type: checkboxes
+    id: read
+    attributes:
+      label: I read
+      options:
+        - label: README quickstart
+        - label: docs/harness.md and/or docs/sdk.md

@@ -1,0 +1,19 @@
+import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/site";
+
+/**
+ * Allow indexing of the public product; skip auth and APIs.
+ *
+ * @example GET /robots.txt
+ */
+export default function robots(): MetadataRoute.Robots {
+  const base = siteUrl();
+  return {
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/auth/", "/account"],
+    },
+    sitemap: `${base}/sitemap.xml`,
+  };
+}

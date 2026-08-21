@@ -1,0 +1,46 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { useHudStore } from "@/lib/store";
+
+/**
+ * Pixel-perfect VLA work-cell camera (same buffer the policy sees).
+ *
+ * @example <VlaFeed />
+ */
+export function VlaFeed() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rgb = useHudStore((s) => s.vlaRgb);
+  const size = useHudStore((s) => s.vlaSize);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !rgb || rgb.length < size * size * 3) return;
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const image = ctx.createImageData(size, size);
+    for (let i = 0, p = 0; i < rgb.length; i += 3, p += 4) {
+      image.data[p] = rgb[i];
+      image.data[p + 1] = rgb[i + 1];
+      image.data[p + 2] = rgb[i + 2];
+      image.data[p + 3] = 255;
+    }
+    ctx.putImageData(image, 0, 0);
+  }, [rgb, size]);
+
+  return (
+    <section className="panel overflow-hidden">
+      <header className="flex items-center justify-between border-b border-white/5 px-3 py-2">
+        <p className="text-xs font-medium text-white">VLA camera {size}×{size}</p>
+      </header>
+      <canvas
+        ref={canvasRef}
+        className="h-[128px] w-full bg-[#07090c]"
+        style={{ imageRendering: "pixelated" }}
+      />
+      <p className="px-3 py-1.5 font-mono text-[10px] text-arena-muted">VLA · RGB 128×128 · no cube poses</p>
+    </section>
+  );
+}

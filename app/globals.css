@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #07080b;
+  --foreground: #f4f6f8;
+  --arena-bg: #07080b;
+  --arena-fg: #f4f6f8;
+  --arena-cyan: #00aeef;
+  --arena-orange: #f7941e;
+  --arena-muted: #8b949e;
+}
+
+html,
+body {
+  min-height: 100%;
+  color: var(--foreground);
+  background: var(--background);
+}
+
+body {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm;
+  }
+}
+
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@keyframes landing-reach {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes landing-lift {
+  0%,
+  22%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  45%,
+  70% {
+    transform: translate3d(36px, -24px, 0);
+  }
+}
+
+.landing-float {
+  animation: landing-float 7s ease-in-out infinite;
+}
+
+.landing-reach {
+  transform-box: fill-box;
+  transform-origin: 12% 100%;
+  animation: landing-reach 5.2s ease-in-out infinite;
+}
+
+.landing-lift {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: landing-lift 5.2s ease-in-out infinite;
+}
+
+.landing-reveal {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease;
+}
+
+.landing-reveal-on {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-float,
+  .landing-reach,
+  .landing-lift {
+    animation: none;
+  }
+
+  .landing-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

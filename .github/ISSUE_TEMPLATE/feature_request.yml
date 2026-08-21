@@ -1,0 +1,43 @@
+name: Feature request
+description: Idea for Studio, harness, SDK, or the board
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        MVP is the loop **agent → score → leaderboard**. Larger ideas may be marked post-MVP.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is hard or missing today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Concrete change. Link papers / repos if useful.
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope guess
+      options:
+        - Fits current stacking MVP
+        - New task type (post-MVP)
+        - Infra / hosting
+        - Docs only
+        - Unsure
+    validations:
+      required: true
+  - type: checkboxes
+    id: willing
+    attributes:
+      label: Contribution
+      options:
+        - label: I can open a PR for this
+        - label: Docs / examples only
+        - label: Idea only for now

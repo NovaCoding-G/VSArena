@@ -1,0 +1,54 @@
+name: Bug report
+description: Something broken in Studio, harness, SDK, or the site
+title: "fix: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Security issues → see [SECURITY.md](../SECURITY.md), do not file here.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Studio / simulation
+        - Harness / WebSocket
+        - Python SDK
+        - Leaderboard / ingest
+        - Auth / account
+        - Docs / i18n
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Expected vs actual. Include logs, screenshots, tick / match id if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "OS · Node · Python · browser · commit SHA"
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues
+        - label: This is not a “Studio demo doesn’t write ELO” report (that is by design)

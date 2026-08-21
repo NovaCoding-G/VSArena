@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vsarena"
+version = "0.1.0"
+description = "VSArena SDK — submit and dry-run embodied agents against the block-stacking arena."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "NovaCoding-G" }]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/NovaCoding-G"
+Repository = "https://github.com/NovaCoding-G/novanexus"
+
+[project.optional-dependencies]
+live = ["websockets>=12.0"]
+
+[project.scripts]
+vsarena = "vsarena.__main__:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+vsarena = ["py.typed"]

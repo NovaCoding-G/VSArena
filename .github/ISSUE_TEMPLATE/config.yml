@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Docs & quickstart
+    url: https://github.com/NovaCoding-G/VSArena/blob/main/README.md
+    about: Run Studio, SDK dry-run, and the harness protocol.
+  - name: Security report (private)
+    url: https://github.com/NovaCoding-G/VSArena/blob/main/SECURITY.md
+    about: Do not post vulnerabilities in public issues — email first.
+  - name: Support
+    url: https://github.com/NovaCoding-G/VSArena/blob/main/SUPPORT.md
+    about: Where to ask product / account / leaderboard questions.
