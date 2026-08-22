@@ -6,33 +6,14 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     ignore:
-      # MVP stack pinned to Next 14 / React 18 / R3F 8 — defer all major bumps post-MVP.
-      - dependency-name: "next"
+      # MVP: no semver-major npm bumps (Next 14 / React 18 / Tailwind 3 / etc.). Revisit post-MVP.
+      - dependency-name: "*"
         update-types: ["version-update:semver-major"]
-      - dependency-name: "react"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "react-dom"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "@types/react"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "@types/react-dom"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "@react-three/fiber"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "@react-three/drei"
-        update-types: ["version-update:semver-major"]
+      # Pin three to 0.169.x for @react-three/fiber compatibility.
       - dependency-name: "three"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types: ["version-update:semver-minor"]
       - dependency-name: "@types/three"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
-      - dependency-name: "eslint-config-next"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "eslint"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "typescript"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "@types/node"
-        update-types: ["version-update:semver-major"]
+        update-types: ["version-update:semver-minor"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
