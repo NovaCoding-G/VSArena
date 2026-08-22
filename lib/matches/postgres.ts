@@ -1,6 +1,7 @@
 // Assumption: uses existing MVP tables (no slug column). Slugs are derived from agent.name.
 
 import { createAdminSupabase } from "@/lib/supabase/admin";
+import { dedupeAgentRows } from "@/lib/matches/dedupe";
 import { agentSlug, type ArenaAgent, type StoredMatch } from "@/lib/matches/memory";
 import { isPublicLeaderboardAgent } from "@/lib/matches/placeholders";
 import { eloDelta } from "@/lib/scoring/elo";
@@ -21,6 +22,7 @@ interface AgentRow {
   id: string;
   name: string;
   elo_rating: number | null;
+  created_at?: string | null;
   matches?: Array<{ count: number }>;
 }
 
@@ -81,33 +83,29 @@ async function houseOwnerId(): Promise<string> {
 }
 
 /**
- * Insert house seed agents if missing. Placeholder VLA names are no longer seeded.
+ * Upsert house seed agents. Uses ON CONFLICT so concurrent serverless cold starts cannot duplicate rows.
  *
  * @example await ensureHouseAgents()
  */
 export async function ensureHouseAgents(): Promise<void> {
   const admin = createAdminSupabase();
-  const { data, error } = await admin.from("agents").select("name");
-  if (error) throw error;
-  const have = new Set((data ?? []).map((row) => String(row.name)));
-  const missing = HOUSE_AGENTS.filter((agent) => !have.has(agent.name));
-  if (missing.length === 0) return;
   const ownerId = await houseOwnerId();
-  const { error: insertError } = await admin.from("agents").insert(
-    missing.map((agent) => ({
+  const { error: upsertError } = await admin.from("agents").upsert(
+    HOUSE_AGENTS.map((agent) => ({
       owner_id: ownerId,
       name: agent.name,
       description: agent.description,
       repo_url: agent.repo_url,
       elo_rating: 1200,
     })),
+    { onConflict: "name", ignoreDuplicates: true },
   );
-  if (insertError) throw insertError;
+  if (upsertError) throw upsertError;
 }
 
 async function loadAgents(): Promise<AgentRow[]> {
   const admin = createAdminSupabase();
-  const { data: agents, error } = await admin.from("agents").select("id, name, elo_rating");
+  const { data: agents, error } = await admin.from("agents").select("id, name, elo_rating, created_at");
   if (error) throw error;
   const { data: matchRows, error: matchError } = await admin.from("matches").select("agent_id");
   if (matchError) throw matchError;
@@ -116,12 +114,14 @@ async function loadAgents(): Promise<AgentRow[]> {
     const id = String(row.agent_id);
     counts.set(id, (counts.get(id) ?? 0) + 1);
   }
-  return (agents ?? []).map((row) => ({
+  const rows = (agents ?? []).map((row) => ({
     id: String(row.id),
     name: String(row.name),
     elo_rating: (row.elo_rating as number | null) ?? 1200,
+    created_at: row.created_at ? String(row.created_at) : null,
     matches: [{ count: counts.get(String(row.id)) ?? 0 }],
   }));
+  return dedupeAgentRows(rows);
 }
 
 /**
@@ -223,17 +223,18 @@ export async function recordMatchPostgres(
   let row = rows.find((item) => agentSlug(item.name) === slug);
   if (!row) {
     const ownerId = await houseOwnerId();
-    const { data: created, error } = await admin
-      .from("agents")
-      .insert({
+    const { error: upsertError } = await admin.from("agents").upsert(
+      {
         owner_id: ownerId,
         name: entry.agent,
         elo_rating: 1200,
-      })
-      .select("id, name, elo_rating")
-      .single();
-    if (error || !created) throw error ?? new Error("agent insert failed");
-    row = { ...created, matches: [{ count: 0 }] };
+      },
+      { onConflict: "name", ignoreDuplicates: true },
+    );
+    if (upsertError) throw upsertError;
+    const reloaded = await loadAgents();
+    row = reloaded.find((item) => agentSlug(item.name) === slug);
+    if (!row) throw new Error("agent upsert failed");
   }
 
   const matchesPlayed = row.matches?.[0]?.count ?? 0;

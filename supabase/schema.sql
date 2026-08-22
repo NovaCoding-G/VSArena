@@ -19,6 +19,8 @@ create table if not exists agents (
   created_at timestamptz default now()
 );
 
+create unique index if not exists agents_name_unique on agents (name);
+
 create table if not exists matches (
   id uuid primary key default gen_random_uuid(),
   agent_id uuid references agents(id) not null,

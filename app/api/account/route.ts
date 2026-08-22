@@ -85,7 +85,12 @@ export async function POST(request: Request) {
       })
       .select("id, name, description, repo_url, elo_rating, created_at")
       .single();
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) {
+      if (error.code === "23505") {
+        return NextResponse.json({ error: "agent name already taken" }, { status: 409 });
+      }
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
     return NextResponse.json({ agent: data }, { status: 201 });
   }
 
