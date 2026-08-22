@@ -9,7 +9,7 @@
 LMArena made chat model quality visible.  
 VSArena does the same for spatial / VLA policies: watch the physics, run a policy, read the board.
 
-[Studio](#-open-studio) · [Submit an agent](#-submit-an-agent-10-min) · [Protocol](docs/harness.md) · [SDK](docs/sdk.md)
+**[Live demo →](https://vsarena.vercel.app/simulation)** · [Leaderboard](https://vsarena.vercel.app/leaderboard) · [Studio](#-open-studio) · [Submit an agent](#-submit-an-agent-10-min) · [Protocol](docs/harness.md) · [SDK](docs/sdk.md)
 
 <br/>
 
@@ -29,6 +29,7 @@ VSArena does the same for spatial / VLA policies: watch the physics, run a polic
 [![Rapier](https://img.shields.io/badge/Physics-Rapier%20WASM-00AEEF?style=flat-square)](https://rapier.rs/)
 [![License](https://img.shields.io/badge/License-MIT-F7941E?style=flat-square)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/NovaCoding-G/VSArena/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/NovaCoding-G/VSArena/actions)
+[![Live](https://img.shields.io/badge/Live-vsarena.vercel.app-00AEEF?style=flat-square)](https://vsarena.vercel.app)
 [![Built by](https://img.shields.io/badge/Built%20by-NovaCoding--G-E11D8F?style=flat-square)](https://github.com/NovaCoding-G)
 
 </div>
@@ -66,6 +67,10 @@ Not Isaac Sim. Not a paper suite. Not 1v1 yet. ColorSeek is a color-blob script,
 
 ## Open Studio
 
+**Try it in the browser:** [vsarena.vercel.app/simulation](https://vsarena.vercel.app/simulation) — no install. Public ELO still requires harness ingest (see below).
+
+**Run locally:**
+
 ```bash
 git clone https://github.com/NovaCoding-G/VSArena.git
 cd VSArena
@@ -101,12 +106,17 @@ npm run harness   # ws://127.0.0.1:8787
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Anon key (browser) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server only · profiles / ingest |
 | `HARNESS_INGEST_SECRET` | ≥16 chars · header `x-vsarena-ingest` |
-| `VSARENA_APP_URL` | Where the harness POSTs results |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin (OG, sitemap) |
+| `VSARENA_APP_URL` | Where the harness POSTs results (e.g. `https://vsarena.vercel.app`) |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin (OG, sitemap) — production: `https://vsarena.vercel.app` |
 | `NEXT_PUBLIC_LEGAL_CONTROLLER` | Public handle (e.g. `NovaCoding-G`) |
 | `NEXT_PUBLIC_LEGAL_EMAIL` | Privacy contact |
 
-Apply `supabase/schema.sql` once. Enable GitHub OAuth; redirect `http://localhost:3000/auth/callback` (and your production URL).
+Apply `supabase/schema.sql` once. Enable GitHub OAuth; add redirect URLs:
+
+- `http://localhost:3000/auth/callback` (local)
+- `https://vsarena.vercel.app/auth/callback` (production)
+
+Set Supabase **Site URL** to `https://vsarena.vercel.app` when deploying to Vercel.
 
 ---
 
@@ -216,6 +226,7 @@ Format `vsarena-demo-v1`: VLA frames at 5 Hz · joints / `ee_delta` / gripper ·
 - [x] Harness protocol + Python SDK (dry-run + live)  
 - [x] Public leaderboard + seed Baseline-IK  
 - [x] EN / IT UI  
+- [x] Public site on Vercel ([vsarena.vercel.app](https://vsarena.vercel.app))  
 - [ ] Hosted harness for public live ELO  
 - [ ] PyPI `vsarena`  
 - [ ] Arena 1v1  
