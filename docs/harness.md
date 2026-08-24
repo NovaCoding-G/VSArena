@@ -88,7 +88,7 @@ In `NODE_ENV=production`, a missing service role **rejects** all keys (no open-d
 
 ## Hosted harness
 
-Public live path: Docker on [Render](../deploy/harness/README.md#render-one-week-trial) (quick trial) or [Oracle Always Free](../deploy/harness/README.md#oracle-always-free). Step-by-step: [deploy/harness/README.md](../deploy/harness/README.md).
+Public live path: Docker on [Render](../deploy/harness/README.md#render-one-week-trial) (quick trial) or [Oracle Always Free](../deploy/harness/README.md#oracle-always-free). 
 
 ```bash
 export VSARENA_API_KEY=…                    # from /account
