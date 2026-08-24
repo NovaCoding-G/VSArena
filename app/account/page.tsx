@@ -53,8 +53,9 @@ export default async function AccountPage() {
         <Link href="/docs" className="text-arena-cyan hover:text-white">
           Docs
         </Link>
-        . Live VLA needs <code className="text-white">npm run harness</code> and{" "}
-        <code className="text-white">HARNESS_INGEST_SECRET</code>.
+        . Live VLA: set <code className="text-white">VSARENA_HARNESS_URL</code> to the hosted{" "}
+        <code className="text-white">wss://</code> harness (or run <code className="text-white">npm run harness</code>{" "}
+        locally) and use this API key.
       </p>
       <div className="mt-8">
         <AccountPanel

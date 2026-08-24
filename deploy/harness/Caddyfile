@@ -1,0 +1,5 @@
+# Assumption: set HARNESS_DOMAIN in .env (e.g. harness.example.com) with DNS A → VM IP.
+{$HARNESS_DOMAIN} {
+	encode gzip
+	reverse_proxy harness:8787
+}

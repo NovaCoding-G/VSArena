@@ -1,51 +1,122 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+# --- dependencies ---
 /node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
 
-# testing
-/coverage
-
-# next.js
+# --- next / build ---
 /.next/
 /out/
-
-# production
 /build
+.turbo/
+.cache/
 
-# misc
-.DS_Store
+# --- env & secrets (never commit) ---
+.env
+.env.*
+!.env.example
+!deploy/harness/env.example
+deploy/harness/.env
 *.pem
+*.key
+credentials.json
+service-account*.json
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env*.local
-
-# vercel
+# --- vercel / scanners ---
 .vercel
-
-# security scanners / local reports
 .novacheck/
 
-# python sdk
+# --- python ---
 __pycache__/
+**/__pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
+venv/
 sdk/python/dist/
 sdk/python/build/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
 
-# local agent scratch (do not publish)
-/my_agent.py
-/vsarena.py
+# --- test / coverage artifacts (keep *.test.ts sources) ---
+/coverage
+*.lcov
+/playwright-report/
+/test-results/
+/blob-report/
+*.snap.local
 
-# typescript
+# --- typescript / tooling ---
 *.tsbuildinfo
 next-env.d.ts
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*~
+
+# --- debug / logs ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+logs/
+
+# --- backups / obsolete copies ---
+*.bak
+*.old
+*.orig
+*.tmp
+*.temp
+*-copy.*
+*_copy.*
+*~
+*.disabled
+
+# --- local agent / founder scratch (do not publish) ---
+.cursorrules
+.cursor/
+AGENTS.md
+NOTES.md
+NOTES.*.md
+TODO.local.md
+PERSONAL.md
+PRIVATE.md
+LOCAL.md
+SCRATCH.md
+**/README.local.md
+**/README.private.md
+deploy/harness/README.md
+/notes/
+/scratch/
+/tmp/
+/local/
+/drafts/
+/my_agent.py
+/vsarena.py
+/*-agent.py
+/*_scratch.*
+/*.local.ts
+/*.local.tsx
+/*.local.py
+
+# --- social / trailer production (outside or inside clone) ---
+/vsarena-trailer/
+/trailer/
+**/trailer/raw/
+**/trailer/out/
+**/trailer/assets/beat.*
+
+# --- misc dumps ---
+*.webm
+*.mp4
+!public/**/*.mp4
+dump.rdb
+*.sqlite
+*.sqlite3

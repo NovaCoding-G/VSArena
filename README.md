@@ -95,8 +95,10 @@ Open [http://localhost:3000/simulation](http://localhost:3000/simulation)
 
 ```bash
 npm test
-npm run harness   # ws://127.0.0.1:8787
+npm run harness   # http://127.0.0.1:8787/health · ws://127.0.0.1:8787
 ```
+
+Hosted harness (Render trial or Oracle): [deploy/harness/README.md](deploy/harness/README.md).
 
 ### Env (`.env.local`)
 
@@ -107,6 +109,7 @@ npm run harness   # ws://127.0.0.1:8787
 | `SUPABASE_SERVICE_ROLE_KEY` | Server only · profiles / ingest |
 | `HARNESS_INGEST_SECRET` | ≥16 chars · header `x-vsarena-ingest` |
 | `VSARENA_APP_URL` | Where the harness POSTs results (e.g. `https://vsarena.vercel.app`) |
+| `VSARENA_HARNESS_URL` | SDK live socket (`wss://…` hosted or `ws://127.0.0.1:8787`) |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin (OG, sitemap) — production: `https://vsarena.vercel.app` |
 | `NEXT_PUBLIC_LEGAL_CONTROLLER` | Public handle (e.g. `NovaCoding-G`) |
 | `NEXT_PUBLIC_LEGAL_EMAIL` | Privacy contact |
@@ -144,7 +147,9 @@ print(run_match(MyAgent(), dry_run=True, mode="vla"))
 
 ```bash
 pip install -e "sdk/python[live]"
-npm run harness
+# Hosted:
+export VSARENA_HARNESS_URL=wss://YOUR_SERVICE.onrender.com
+# Or local: npm run harness  (default ws://127.0.0.1:8787)
 ```
 
 ```python
@@ -197,6 +202,7 @@ lib/vision/     128×128 VLA raster + blobs
 lib/agents/     Baseline-IK · ColorSeek
 sdk/python/     pip-installable agent SDK
 server/         Standalone WebSocket harness
+deploy/harness/ Hosted live harness (Render trial · Oracle/Docker)
 docs/           Protocol + SDK
 supabase/       Schema + RLS
 ```
@@ -227,7 +233,7 @@ Format `vsarena-demo-v1`: VLA frames at 5 Hz · joints / `ee_delta` / gripper ·
 - [x] Public leaderboard + seed Baseline-IK  
 - [x] EN / IT UI  
 - [x] Public site on Vercel ([vsarena.vercel.app](https://vsarena.vercel.app))  
-- [ ] Hosted harness for public live ELO  
+- [x] Hosted harness deploy kit ([deploy/harness](deploy/harness) — Render trial + Oracle Docker)  
 - [ ] PyPI `vsarena`  
 - [ ] Arena 1v1  
 - [ ] More tasks (spoilers in Studio: color sort, peg-in-hole, push-to-zone)

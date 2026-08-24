@@ -82,13 +82,28 @@ If `ee_delta` is present (metres from current TCP), geometric IK overrides `join
 
 ## Auth
 
-Hello must include the API key from `/account`. The harness loads `.env.local` and looks up `profiles.api_key`. Set `HARNESS_INGEST_SECRET` (≥16 chars) and `VSARENA_APP_URL` so results land on the leaderboard.
+Hello must include the API key from `/account`. The harness looks up `profiles.api_key` via Supabase service role. Set `HARNESS_INGEST_SECRET` (≥16 chars) and `VSARENA_APP_URL` so results land on the leaderboard.
+
+In `NODE_ENV=production`, a missing service role **rejects** all keys (no open-dev fallback).
+
+## Hosted harness
+
+Public live path: Docker on [Render](../deploy/harness/README.md#render-one-week-trial) (quick trial) or [Oracle Always Free](../deploy/harness/README.md#oracle-always-free). Step-by-step: [deploy/harness/README.md](../deploy/harness/README.md).
+
+```bash
+export VSARENA_API_KEY=…                    # from /account
+export VSARENA_HARNESS_URL=wss://YOUR_SERVICE.onrender.com
+pip install -e "sdk/python[live]"
+python -c "from vsarena import ColorSeek, run_match; print(run_match(ColorSeek(), dry_run=False, mode='vla'))"
+```
+
+Health: `GET https://…/health` → `{ "ok": true, "busy": false }`. One match at a time; a second client gets a recoverable `harness busy` error.
 
 ## Local run
 
 1. `/simulation` → **Run Baseline-IK** (poses) or **Run ColorSeek** (VLA RGB blobs). Neither writes public ELO. Tab VISION shows the 128×128 camera.
 2. **Record demo** / **Stop + download** writes `vsarena-demo-v1` JSON (5 Hz, no cube poses). Replay with `python examples/replay_demo.py file.json`.
 3. `pip install -e sdk/python` then `python examples/color_seek.py` (VLA dry-run).
-4. `npm run harness` + `run_match(..., dry_run=False, mode="vla", api_key=...)`.
+4. `npm run harness` (serves `http://127.0.0.1:8787/health` + `ws://127.0.0.1:8787`) + `run_match(..., dry_run=False, mode="vla", api_key=...)`.
 
 Python SDK: [sdk.md](sdk.md)

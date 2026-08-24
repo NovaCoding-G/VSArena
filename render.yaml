@@ -1,0 +1,24 @@
+# Assumption: same Dockerfile as Oracle/Fly. Secrets are sync:false — set only in Render Dashboard (never commit values).
+services:
+  - type: web
+    name: vsarena-harness
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: VSARENA_APP_URL
+        value: https://vsarena.vercel.app
+      # Set these in the Render dashboard only (Environment → Secret).
+      - key: HARNESS_INGEST_SECRET
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false

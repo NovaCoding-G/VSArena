@@ -22,6 +22,10 @@ export async function verifyHarnessApiKey(apiKey: string): Promise<ApiKeyOk | Ap
   const trimmed = apiKey.trim();
   if (!trimmed) return { ok: false, reason: "api_key required" };
   if (!hasServiceRole()) {
+    if (process.env.NODE_ENV === "production") {
+      console.error("[vsarena-harness] SUPABASE_SERVICE_ROLE_KEY required in production");
+      return { ok: false, reason: "harness misconfigured: service role missing" };
+    }
     console.warn("[vsarena-harness] no SUPABASE_SERVICE_ROLE_KEY — accepting any api_key (dev only)");
     return { ok: true, username: "dev" };
   }

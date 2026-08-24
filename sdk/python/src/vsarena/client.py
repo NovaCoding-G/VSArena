@@ -1,4 +1,4 @@
-# Assumption: live default is ws://127.0.0.1:8787; key from api_key= or VSARENA_API_KEY.
+# Assumption: live URL from ws_url= or VSARENA_HARNESS_URL, else ws://127.0.0.1:8787; key from api_key= or VSARENA_API_KEY.
 """Run a match locally (mock) or against the VSArena WebSocket harness."""
 
 from __future__ import annotations
@@ -9,6 +9,20 @@ from typing import Any
 
 from vsarena.agent import Agent
 from vsarena.mock_env import run_dry_run
+
+_DEFAULT_LOCAL_WS = "ws://127.0.0.1:8787"
+
+
+def _resolve_ws_url(ws_url: str | None) -> str:
+    """Prefer explicit arg, then VSARENA_HARNESS_URL, then local harness.
+
+    Example:
+        _resolve_ws_url(None)  # env or ws://127.0.0.1:8787
+    """
+    if ws_url and ws_url.strip():
+        return ws_url.strip()
+    env = (os.environ.get("VSARENA_HARNESS_URL") or "").strip()
+    return env or _DEFAULT_LOCAL_WS
 
 
 def run_match(
@@ -29,7 +43,7 @@ def run_match(
         task: Only `block_stacking` in MVP.
         api_key: Required for live matches (from /account).
         dry_run: If True, never opens a socket.
-        ws_url: Live harness, default `ws://127.0.0.1:8787`.
+        ws_url: Live harness; else `VSARENA_HARNESS_URL`; else `ws://127.0.0.1:8787`.
         ticks: Mock horizon.
         mode: `vla` (RGB + instruction) or `state` (privileged poses, debug).
         agent_name: Leaderboard label; defaults to GitHub username on the server.
@@ -50,7 +64,7 @@ def run_match(
     return _run_live(
         agent,
         api_key=key,
-        ws_url=ws_url or "ws://127.0.0.1:8787",
+        ws_url=_resolve_ws_url(ws_url),
         task=task,
         mode=mode,
         agent_name=agent_name,
