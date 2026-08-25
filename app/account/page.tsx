@@ -56,9 +56,9 @@ export default async function AccountPage() {
         . Live VLA: set <code className="text-white">VSARENA_HARNESS_URL</code> to{" "}
         <code className="text-white">wss://vsarena-harness.onrender.com</code> (or{" "}
         <code className="text-white">npm run harness</code> locally) and use this API key. Watch the
-        judge at{" "}
-        <Link href="/live" className="text-arena-cyan hover:text-white">
-          /live
+        judge in Studio →{" "}
+        <Link href="/simulation?view=live" className="text-arena-cyan hover:text-white">
+          Official live
         </Link>
         .
       </p>

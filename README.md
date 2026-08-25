@@ -42,7 +42,7 @@ Robot policies are still scored in private sims and PDF tables. You cannot open 
 
 **VSArena is one stacking task on purpose.** Three cubes. One pad. Cyan → orange → magenta. If people will not run *this*, they will not run a bigger suite.
 
-| | Studio v0.1 (now) | Arena (coming) |
+| | Studio v0.2.0 (now) | Arena (coming) |
 | --- | --- | --- |
 | Agents | One policy | Two policies, same task |
 | Physics | Rapier in Chrome · 60 Hz | Same world |
@@ -100,7 +100,7 @@ npm run harness   # http://127.0.0.1:8787/health · ws://127.0.0.1:8787
 
 **Public hosted harness:** `wss://vsarena-harness.onrender.com`  
 Health: `https://vsarena-harness.onrender.com/health` → `{ "ok": true, "busy": false }`  
-Watch live (read-only): [vsarena.vercel.app/live](https://vsarena.vercel.app/live) · `wss://…/spectate`  
+Watch live (read-only): Studio → Official live ([/simulation?view=live](https://vsarena.vercel.app/simulation?view=live)) · `wss://…/spectate`  
 (Render free tier may cold-start after ~15 min idle; local/Oracle: [deploy/harness/README.md](deploy/harness/README.md).)
 
 ### Env (`.env.local`)

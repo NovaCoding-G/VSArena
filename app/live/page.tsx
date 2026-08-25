@@ -1,21 +1,10 @@
-import { LiveViewer } from "@/components/live/LiveViewer";
-import { pageMetadata } from "@/lib/seo";
-
-export const metadata = pageMetadata(
-  "Live",
-  "Watch the official VSArena harness judge a live match in real time. Read-only — ELO stays on the server.",
-  "/live",
-);
+import { redirect } from "next/navigation";
 
 /**
- * Public spectator for the hosted harness (/spectate).
+ * Live spectator lives inside Studio (`?view=live`). Keep /live as a short alias.
  *
- * @example routed at /live
+ * @example /live → /simulation?view=live
  */
-export default function LivePage() {
-  return (
-    <main className="flex-1">
-      <LiveViewer />
-    </main>
-  );
+export default function LiveRedirectPage() {
+  redirect("/simulation?view=live");
 }

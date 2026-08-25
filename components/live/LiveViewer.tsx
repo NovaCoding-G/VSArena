@@ -1,6 +1,6 @@
 "use client";
 
-/** Read-only 3D mirror of the hosted harness. Assumption: no Rapier here — poses come from /spectate. */
+/** Read-only 3D mirror of the hosted harness. Assumption: no Rapier here — poses from /spectate. */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
@@ -16,6 +16,7 @@ import type { SpectateFrameMessage, SpectateMessage } from "@/lib/harness/specta
 import { harnessHealthUrl, harnessSpectateUrl } from "@/lib/live/harnessWs";
 import { TABLE_TOP_Y } from "@/simulation/constants";
 import type { BlockState, JointState } from "@/simulation/types";
+import { cn } from "@/lib/utils";
 
 type LiveStatus = "connecting" | "idle" | "live" | "result" | "error";
 
@@ -33,18 +34,23 @@ const ZERO_JOINTS: JointState = {
   gripper: 0,
 };
 
+/** Closer table rig — fills the frame like Studio, not a distant vignette. */
+const CAM: [number, number, number] = [1.15, 1.05, 1.05];
+const CAM_TARGET: [number, number, number] = [0.08, TABLE_TOP_Y + 0.1, 0];
+
 /**
- * Spectator HUD + Canvas driven by harness /spectate.
+ * Full-bleed spectator stage: HUD overlays the canvas (no dead black band).
  *
- * @example <LiveViewer />
+ * @example <LiveViewer onCollapse={() => router.push("/simulation")} />
  */
-export function LiveViewer() {
+export function LiveViewer({ onCollapse }: { onCollapse?: () => void }) {
   const jointsRef = useRef<JointState>({ ...ZERO_JOINTS });
   const blocksRef = useRef<BlockState[]>([]);
   const [status, setStatus] = useState<LiveStatus>("connecting");
   const [agent, setAgent] = useState<string | null>(null);
   const [tick, setTick] = useState(0);
   const [taskScore, setTaskScore] = useState(0);
+  const [mode, setMode] = useState<string | null>(null);
   const [result, setResult] = useState<ResultBanner | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
@@ -60,6 +66,7 @@ export function LiveViewer() {
     setAgent(frame.agent);
     setTick(frame.tick);
     setTaskScore(frame.task_completion_score);
+    setMode(frame.mode);
     setStatus("live");
     setResult(null);
     setReady(true);
@@ -74,9 +81,8 @@ export function LiveViewer() {
     const connect = () => {
       if (cancelled) return;
       setStatus((s) => (s === "live" ? s : "connecting"));
-      const url = harnessSpectateUrl();
       try {
-        socket = new WebSocket(url);
+        socket = new WebSocket(harnessSpectateUrl());
       } catch {
         setStatus("error");
         setError("Could not open spectator socket");
@@ -105,6 +111,7 @@ export function LiveViewer() {
           setAgent(null);
           setTick(0);
           setTaskScore(0);
+          setMode(null);
           return;
         }
         if (msg.type === "spectate_result") {
@@ -122,20 +129,14 @@ export function LiveViewer() {
         }
       };
 
-      socket.onerror = () => {
-        // onclose handles retry
-      };
-
       socket.onclose = () => {
         if (cancelled) return;
         setStatus("connecting");
         attempt += 1;
-        const delay = Math.min(12_000, 1500 * attempt);
-        retryTimer = setTimeout(connect, delay);
+        retryTimer = setTimeout(connect, Math.min(12_000, 1500 * attempt));
       };
     };
 
-    // Wake free-tier Render before WS when possible.
     void fetch(harnessHealthUrl()).catch(() => undefined);
     connect();
 
@@ -149,13 +150,13 @@ export function LiveViewer() {
   const statusLabel = useMemo(() => {
     switch (status) {
       case "connecting":
-        return "Connecting…";
+        return "Connecting";
       case "idle":
-        return "Waiting for a live match";
+        return "Waiting";
       case "live":
         return "LIVE";
       case "result":
-        return "Match finished";
+        return "Finished";
       case "error":
         return "Offline";
       default:
@@ -163,79 +164,49 @@ export function LiveViewer() {
     }
   }, [status]);
 
-  return (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col">
-      <div className="border-b border-white/[0.06] px-5 py-4">
-        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-sm font-medium text-arena-cyan">Spectator</p>
-            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-white">Live harness</h1>
-            <p className="mt-2 max-w-xl text-sm leading-6 text-arena-muted">
-              Watch the official judge in real time. Scoring and ELO stay on the harness — this page
-              only mirrors poses.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span
-              className={
-                status === "live"
-                  ? "rounded-full bg-emerald-500/15 px-3 py-1 font-medium text-emerald-300"
-                  : "rounded-full bg-white/5 px-3 py-1 text-arena-muted"
-              }
-            >
-              {status === "live" ? (
-                <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-              ) : null}
-              {statusLabel}
-            </span>
-            {agent ? <span className="text-white">{agent}</span> : null}
-            {status === "live" ? (
-              <span className="text-arena-muted">
-                tick {tick} · task {(taskScore * 100).toFixed(0)}%
-              </span>
-            ) : null}
-          </div>
-        </div>
-        {result ? (
-          <div className="mx-auto mt-4 w-full max-w-6xl rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-arena-muted">
-            <span className="text-white">{result.agent}</span> finished — spatial{" "}
-            {(result.spatial * 100).toFixed(0)}% · task {(result.task * 100).toFixed(0)}%.{" "}
-            <Link href="/leaderboard" className="text-arena-cyan hover:text-white">
-              Leaderboard
-            </Link>
-          </div>
-        ) : null}
-        {error ? (
-          <p className="mx-auto mt-3 w-full max-w-6xl text-sm text-amber-300/90">{error}</p>
-        ) : null}
-        {status === "idle" || status === "connecting" ? (
-          <p className="mx-auto mt-3 w-full max-w-6xl text-sm text-arena-muted">
-            Run a live agent with{" "}
-            <code className="text-white">VSARENA_HARNESS_URL=wss://vsarena-harness.onrender.com</code>{" "}
-            to fill this view. Free tier may take ~30–60s to wake.
-          </p>
-        ) : null}
-      </div>
+  const taskPct = Math.round(taskScore * 100);
 
-      <div className="relative min-h-[420px] flex-1 bg-[#07080b]">
+  return (
+    <div className="relative h-[calc(100dvh-4rem)] min-h-0 overflow-hidden bg-[#12151c] max-md:h-[calc(100dvh-6.75rem)]">
+      {/* Full-bleed stage */}
+      <div className="absolute inset-0">
         <Canvas
+          className="h-full w-full"
           shadows
-          dpr={[1, 1.75]}
-          camera={{ position: [1.72, 1.18, 1.55], fov: 42, near: 0.05, far: 40 }}
-          gl={{ antialias: true }}
+          dpr={[1, 2]}
+          gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
+          camera={{ position: CAM, fov: 36, near: 0.06, far: 28 }}
           onCreated={({ gl }) => {
+            gl.setClearColor("#12151c", 1);
             gl.toneMapping = ACESFilmicToneMapping;
+            gl.toneMappingExposure = 1.35;
             gl.outputColorSpace = SRGBColorSpace;
           }}
         >
-          <color attach="background" args={["#07080b"]} />
-          <ambientLight intensity={0.45} />
-          <directionalLight
+          <fog attach="fog" args={["#12151c", 8, 18]} />
+          <hemisphereLight args={["#c5d0dc", "#1a1e26", 0.95]} />
+          <ambientLight intensity={0.72} />
+          <spotLight
+            position={[1.8, 3.4, 1.7]}
+            angle={0.62}
+            penumbra={0.55}
+            intensity={4.2}
+            decay={0}
+            color="#fff6ee"
             castShadow
-            intensity={1.15}
-            position={[2.4, 4.2, 1.8]}
-            shadow-mapSize={[1024, 1024]}
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
+            shadow-bias={-0.0002}
           />
+          <spotLight
+            position={[-2.0, 2.8, 1.2]}
+            angle={0.75}
+            penumbra={0.8}
+            intensity={1.8}
+            decay={0}
+            color="#b9d4ef"
+          />
+          <pointLight position={[0.15, 2.15, 0.1]} intensity={1.6} decay={0} color="#e8eef5" />
           <ArenaSet />
           <Table />
           <TargetZone />
@@ -245,22 +216,125 @@ export function LiveViewer() {
               <Blocks blocksRef={blocksRef} />
             </>
           ) : null}
-          <ContactShadows
-            position={[0, 0.002, 0]}
-            opacity={0.45}
-            scale={8}
-            blur={2.2}
-            far={4}
-          />
+          <ContactShadows position={[0, 0.002, 0]} opacity={0.32} scale={8} blur={2.4} far={2.6} />
           <OrbitControls
             makeDefault
-            target={[0.08, TABLE_TOP_Y + 0.08, 0]}
-            minDistance={0.95}
-            maxDistance={4.2}
-            minPolarAngle={0.18}
-            maxPolarAngle={Math.PI / 2 - 0.12}
+            enableDamping
+            dampingFactor={0.08}
+            target={CAM_TARGET}
+            minDistance={0.85}
+            maxDistance={3.2}
+            minPolarAngle={0.2}
+            maxPolarAngle={Math.PI / 2 - 0.1}
           />
         </Canvas>
+      </div>
+
+      {/* Top HUD */}
+      <div className="pointer-events-none relative z-10 flex items-start justify-between gap-4 p-4 sm:p-5">
+        <div className="pointer-events-auto flex max-w-md flex-col gap-2">
+          {onCollapse ? (
+            <button
+              type="button"
+              onClick={onCollapse}
+              className="w-fit rounded-full border border-white/15 bg-[#07080b]/80 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-colors hover:bg-white/10"
+            >
+              ← Studio
+            </button>
+          ) : null}
+          <div className="rounded-2xl border border-white/[0.08] bg-[#07080b]/72 px-4 py-3 backdrop-blur-md">
+            <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-arena-cyan">
+              Official judge · spectator
+            </p>
+            <h1 className="mt-1 text-lg font-semibold tracking-tight text-white sm:text-xl">Live</h1>
+            <p className="mt-1 text-xs leading-5 text-arena-muted sm:text-sm">
+              Same run that writes ELO. Browser only mirrors poses.
+            </p>
+          </div>
+        </div>
+
+        <div className="pointer-events-auto flex flex-col items-end gap-2">
+          <div
+            className={cn(
+              "flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium backdrop-blur-md",
+              status === "live"
+                ? "border-emerald-400/30 bg-emerald-500/15 text-emerald-200"
+                : "border-white/10 bg-[#07080b]/72 text-arena-muted",
+            )}
+          >
+            {status === "live" ? (
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
+            ) : (
+              <span className="h-2 w-2 rounded-full bg-white/25" />
+            )}
+            {statusLabel}
+          </div>
+          {agent ? (
+            <div className="rounded-xl border border-white/[0.08] bg-[#07080b]/72 px-3 py-2 text-right text-xs backdrop-blur-md sm:text-sm">
+              <p className="font-medium text-white">{agent}</p>
+              <p className="mt-0.5 font-mono text-arena-muted">
+                {mode ? `${mode} · ` : ""}tick {tick}
+              </p>
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+      {/* Bottom HUD: task bar + hints */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4 sm:p-5">
+        <div className="pointer-events-auto mx-auto flex w-full max-w-3xl flex-col gap-3">
+          {status === "live" || status === "result" ? (
+            <div className="rounded-xl border border-white/[0.08] bg-[#07080b]/75 px-4 py-3 backdrop-blur-md">
+              <div className="mb-1.5 flex items-center justify-between text-xs text-arena-muted">
+                <span>Task completion</span>
+                <span className="font-mono text-white">{taskPct}%</span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-arena-cyan to-emerald-400 transition-[width] duration-300"
+                  style={{ width: `${Math.min(100, Math.max(0, taskPct))}%` }}
+                />
+              </div>
+            </div>
+          ) : null}
+
+          {result ? (
+            <div className="rounded-xl border border-white/10 bg-[#07080b]/80 px-4 py-3 text-sm text-arena-muted backdrop-blur-md">
+              <span className="text-white">{result.agent}</span> finished — spatial{" "}
+              {(result.spatial * 100).toFixed(0)}% · task {(result.task * 100).toFixed(0)}%.{" "}
+              <Link href="/leaderboard" className="text-arena-cyan hover:text-white">
+                Leaderboard →
+              </Link>
+            </div>
+          ) : null}
+
+          {error ? (
+            <p className="rounded-xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-100/90 backdrop-blur-md">
+              {error}
+            </p>
+          ) : null}
+
+          {status === "idle" || status === "connecting" ? (
+            <div className="rounded-xl border border-white/[0.08] bg-[#07080b]/75 px-4 py-3 text-sm text-arena-muted backdrop-blur-md">
+              {status === "connecting" ? (
+                <p>Waking spectator link… (Render free tier can take ~30–60s.)</p>
+              ) : (
+                <p>
+                  No match right now. From your machine:{" "}
+                  <code className="text-white">VSARENA_HARNESS_URL=wss://vsarena-harness.onrender.com</code>{" "}
+                  then run ColorSeek live — this stage fills automatically.{" "}
+                  <Link href="/account" className="text-arena-cyan hover:text-white">
+                    API key
+                  </Link>
+                  {" · "}
+                  <Link href="/submit" className="text-arena-cyan hover:text-white">
+                    Submit
+                  </Link>
+                </p>
+              )}
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ export function buildClipCaption(input: {
   result: ResultMessage | null;
 }): string {
   const { platforms } = CLIP_FORMATS[input.format];
-  const lines = [`${input.agent} · block stacking · VSArena Studio v0.1`];
+  const lines = [`${input.agent} · block stacking · VSArena Studio v0.2.0`];
   if (input.result) {
     const { spatial_accuracy, task_completion_score } = input.result.scores;
     const elo = input.result.elo_delta;
