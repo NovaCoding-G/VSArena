@@ -1,5 +1,6 @@
-# Assumption: Node 20 + tsx runs server/harness.ts; Rapier WASM needs glibc (bookworm, not alpine).
-FROM node:20-bookworm-slim
+# Assumption: Node 22 + tsx runs server/harness.ts; Rapier WASM needs glibc (bookworm, not alpine).
+# Node 22+ has native WebSocket (supabase-js realtime); admin client also passes `ws` for Node < 22.
+FROM node:22-bookworm-slim
 
 WORKDIR /app
 
