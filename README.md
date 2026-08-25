@@ -98,7 +98,9 @@ npm test
 npm run harness   # http://127.0.0.1:8787/health · ws://127.0.0.1:8787
 ```
 
-Hosted harness (Render trial or Oracle): [deploy/harness/README.md](deploy/harness/README.md).
+**Public hosted harness:** `wss://vsarena-harness.onrender.com`  
+Health: `https://vsarena-harness.onrender.com/health` → `{ "ok": true, "busy": false }`  
+(Render free tier may cold-start after ~15 min idle; local/Oracle: [deploy/harness/README.md](deploy/harness/README.md).)
 
 ### Env (`.env.local`)
 
@@ -109,7 +111,7 @@ Hosted harness (Render trial or Oracle): [deploy/harness/README.md](deploy/harne
 | `SUPABASE_SERVICE_ROLE_KEY` | Server only · profiles / ingest |
 | `HARNESS_INGEST_SECRET` | ≥16 chars · header `x-vsarena-ingest` |
 | `VSARENA_APP_URL` | Where the harness POSTs results (e.g. `https://vsarena.vercel.app`) |
-| `VSARENA_HARNESS_URL` | SDK live socket (`wss://…` hosted or `ws://127.0.0.1:8787`) |
+| `VSARENA_HARNESS_URL` | SDK live socket — production: `wss://vsarena-harness.onrender.com` (or `ws://127.0.0.1:8787` local) |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin (OG, sitemap) — production: `https://vsarena.vercel.app` |
 | `NEXT_PUBLIC_LEGAL_CONTROLLER` | Public handle (e.g. `NovaCoding-G`) |
 | `NEXT_PUBLIC_LEGAL_EMAIL` | Privacy contact |
@@ -147,8 +149,8 @@ print(run_match(MyAgent(), dry_run=True, mode="vla"))
 
 ```bash
 pip install -e "sdk/python[live]"
-# Hosted:
-export VSARENA_HARNESS_URL=wss://YOUR_SERVICE.onrender.com
+export VSARENA_API_KEY=…   # from /account
+export VSARENA_HARNESS_URL=wss://vsarena-harness.onrender.com
 # Or local: npm run harness  (default ws://127.0.0.1:8787)
 ```
 

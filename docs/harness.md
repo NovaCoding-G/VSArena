@@ -88,16 +88,21 @@ In `NODE_ENV=production`, a missing service role **rejects** all keys (no open-d
 
 ## Hosted harness
 
-Public live path: Docker on [Render](../deploy/harness/README.md#render-one-week-trial) (quick trial) or [Oracle Always Free](../deploy/harness/README.md#oracle-always-free). 
+Production WebSocket (Render):
+
+| | |
+| --- | --- |
+| Live | `wss://vsarena-harness.onrender.com` |
+| Health | `GET https://vsarena-harness.onrender.com/health` → `{ "ok": true, "busy": false }` |
+
+Free tier may take 30–60s after idle (~15 min). One match at a time; a second client gets `harness busy`. Self-host / Oracle: [deploy/harness/README.md](../deploy/harness/README.md).
 
 ```bash
 export VSARENA_API_KEY=…                    # from /account
-export VSARENA_HARNESS_URL=wss://YOUR_SERVICE.onrender.com
+export VSARENA_HARNESS_URL=wss://vsarena-harness.onrender.com
 pip install -e "sdk/python[live]"
 python -c "from vsarena import ColorSeek, run_match; print(run_match(ColorSeek(), dry_run=False, mode='vla'))"
 ```
-
-Health: `GET https://…/health` → `{ "ok": true, "busy": false }`. One match at a time; a second client gets a recoverable `harness busy` error.
 
 ## Local run
 
