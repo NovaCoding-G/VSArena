@@ -3,6 +3,7 @@ import type { Locale } from "@/lib/i18n/locale";
 const en = {
   nav: {
     studio: "Studio v0.1",
+    live: "Live",
     arena: "Arena",
     leaderboard: "Leaderboard",
     docs: "Docs",
@@ -23,6 +24,7 @@ const en = {
     copy: "Developed by NovaCoding-G",
     events: "Events",
     submit: "Submit an agent",
+    live: "Live harness",
     team: "Team",
     jobs: "Jobs",
     sdk: "SDK",
@@ -331,6 +333,7 @@ export type Messages = typeof en;
 const it: Messages = {
   nav: {
     studio: "Studio v0.1",
+    live: "Live",
     arena: "Arena",
     leaderboard: "Classifica",
     docs: "Guida",
@@ -351,6 +354,7 @@ const it: Messages = {
     copy: "Sviluppato da NovaCoding-G",
     events: "Eventi",
     submit: "Manda un agente",
+    live: "Harness live",
     team: "Chi c’è",
     jobs: "Posizioni",
     sdk: "SDK",

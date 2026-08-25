@@ -92,10 +92,22 @@ Production WebSocket (Render):
 
 | | |
 | --- | --- |
-| Live | `wss://vsarena-harness.onrender.com` |
-| Health | `GET https://vsarena-harness.onrender.com/health` → `{ "ok": true, "busy": false }` |
+| Agent (judge) | `wss://vsarena-harness.onrender.com` |
+| Spectator (read-only) | `wss://vsarena-harness.onrender.com/spectate` |
+| Health | `GET https://vsarena-harness.onrender.com/health` → `{ "ok": true, "busy": false, "live": … }` |
+| Watch in browser | [vsarena.vercel.app/live](https://vsarena.vercel.app/live) |
 
-Free tier may take 30–60s after idle (~15 min). One match at a time; a second client gets `harness busy`. Self-host / Oracle: [deploy/harness/README.md](../deploy/harness/README.md).
+Free tier may take 30–60s after idle (~15 min). One match at a time; a second agent gets `harness busy`. Spectators do not block the agent. Self-host / Oracle: [deploy/harness/README.md](../deploy/harness/README.md).
+
+### Spectator messages
+
+| type | Meaning |
+| --- | --- |
+| `spectate_idle` | No live match |
+| `spectate_frame` | Privileged joints + block poses (+ partial task score) |
+| `spectate_result` | Match ended (scores); ELO still only via ingest |
+
+Browsers must never send `action` on `/spectate`.
 
 ```bash
 export VSARENA_API_KEY=…                    # from /account

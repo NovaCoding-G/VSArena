@@ -22,6 +22,7 @@ export function siteUrl(): string {
 
 export const MAIN_NAV = [
   { href: "/simulation", key: "studio" },
+  { href: "/live", key: "live" },
   { href: "/arena", key: "arena", soon: true },
   { href: "/leaderboard", key: "leaderboard" },
   { href: "/docs", key: "docs" },
@@ -32,6 +33,7 @@ export const MAIN_NAV = [
 export const FOOTER = {
   product: [
     { href: "/simulation", key: "studio" },
+    { href: "/live", key: "live" },
     { href: "/arena", key: "arena" },
     { href: "/leaderboard", key: "leaderboard" },
     { href: "/events", key: "events" },

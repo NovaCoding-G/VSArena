@@ -100,6 +100,7 @@ npm run harness   # http://127.0.0.1:8787/health · ws://127.0.0.1:8787
 
 **Public hosted harness:** `wss://vsarena-harness.onrender.com`  
 Health: `https://vsarena-harness.onrender.com/health` → `{ "ok": true, "busy": false }`  
+Watch live (read-only): [vsarena.vercel.app/live](https://vsarena.vercel.app/live) · `wss://…/spectate`  
 (Render free tier may cold-start after ~15 min idle; local/Oracle: [deploy/harness/README.md](deploy/harness/README.md).)
 
 ### Env (`.env.local`)

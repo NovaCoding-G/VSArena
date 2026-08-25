@@ -1,4 +1,5 @@
 // Assumption: standalone Node process for live matches. PORT (cloud) or HARNESS_PORT (local, default 8787).
+// Agent socket = judge. /spectate = read-only fan-out for the website (no actions, no ELO writes).
 
 import "./loadEnv";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
@@ -21,6 +22,12 @@ import {
   snapshotToState,
 } from "../lib/harness/codec";
 import type { ActionMessage, HelloMessage, ObservationMode, ResultMessage } from "../lib/harness/protocol";
+import {
+  isSpectatePath,
+  snapshotToSpectateFrame,
+  type SpectateFrameMessage,
+  type SpectateMessage,
+} from "../lib/harness/spectate";
 import { VLA_ACTION_TIMEOUT_MS, VLA_POLICY_HZ } from "../lib/vision/raster";
 import { verifyHarnessApiKey } from "./verifyApiKey";
 import { ingestOfficialResult } from "./ingestResult";
@@ -28,9 +35,14 @@ import { ingestOfficialResult } from "./ingestResult";
 const PORT = Number(process.env.PORT ?? process.env.HARNESS_PORT ?? 8787);
 const STATE_STEP = 1 / HARNESS_TICK_HZ;
 const VLA_STEP = 1 / VLA_POLICY_HZ;
+/** State track is 20 Hz; fans out at half rate to keep spectate light. */
+const SPECTATE_STATE_EVERY = 2;
 
 /** MVP: one Rapier world at a time on a free VM. */
 let matchBusy = false;
+
+const spectators = new Set<WebSocket>();
+let lastSpectateFrame: SpectateFrameMessage | null = null;
 
 const server = createServer((req, res) => {
   void handleHttp(req, res);
@@ -41,11 +53,17 @@ const wss = new WebSocketServer({ server });
 server.listen(PORT, "0.0.0.0", () => {
   const prod = process.env.NODE_ENV === "production";
   console.log(`[vsarena-harness] http://0.0.0.0:${PORT}/health`);
-  console.log(`[vsarena-harness] ws://0.0.0.0:${PORT} (behind TLS: wss://…)`);
+  console.log(`[vsarena-harness] ws://0.0.0.0:${PORT} (agent)`);
+  console.log(`[vsarena-harness] ws://0.0.0.0:${PORT}/spectate (read-only)`);
   if (prod) console.log("[vsarena-harness] NODE_ENV=production — api_key lookup required");
 });
 
-wss.on("connection", (socket) => {
+wss.on("connection", (socket, req) => {
+  const path = (req.url ?? "/").split("?")[0] ?? "/";
+  if (isSpectatePath(path)) {
+    handleSpectate(socket);
+    return;
+  }
   void handleConnection(socket).catch((error: unknown) => {
     const message = error instanceof Error ? error.message : "connection failed";
     safeSend(socket, { type: "error", message, recoverable: false });
@@ -54,19 +72,62 @@ wss.on("connection", (socket) => {
 });
 
 /**
- * Health for reverse proxies / cloud probes.
+ * Health for reverse proxies / cloud probes (+ optional live meta for /live).
  *
  * @example GET /health → { ok: true, busy: false }
  */
 function handleHttp(req: IncomingMessage, res: ServerResponse): void {
   const path = (req.url ?? "/").split("?")[0];
   if (req.method === "GET" && (path === "/health" || path === "/")) {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ ok: true, busy: matchBusy }));
+    res.writeHead(200, {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    });
+    const live = lastSpectateFrame
+      ? {
+          match_id: lastSpectateFrame.match_id,
+          agent: lastSpectateFrame.agent,
+          mode: lastSpectateFrame.mode,
+          tick: lastSpectateFrame.tick,
+        }
+      : null;
+    res.end(JSON.stringify({ ok: true, busy: matchBusy, live, spectators: spectators.size }));
     return;
   }
   res.writeHead(404, { "Content-Type": "application/json" });
   res.end(JSON.stringify({ ok: false, error: "not found" }));
+}
+
+/**
+ * Read-only watchers. Ignore inbound messages; never write ELO.
+ */
+function handleSpectate(socket: WebSocket): void {
+  spectators.add(socket);
+  if (lastSpectateFrame && matchBusy) {
+    safeSend(socket, lastSpectateFrame);
+  } else {
+    safeSend(socket, { type: "spectate_idle", busy: false } satisfies SpectateMessage);
+  }
+  const drop = () => {
+    spectators.delete(socket);
+  };
+  socket.on("close", drop);
+  socket.on("error", drop);
+  socket.on("message", () => {
+    // Spectators cannot send actions.
+  });
+}
+
+function broadcastSpectate(payload: SpectateMessage): void {
+  if (payload.type === "spectate_frame") {
+    lastSpectateFrame = payload;
+  }
+  if (payload.type === "spectate_idle" || payload.type === "spectate_result") {
+    lastSpectateFrame = null;
+  }
+  for (const socket of spectators) {
+    safeSend(socket, payload);
+  }
 }
 
 async function handleConnection(socket: WebSocket): Promise<void> {
@@ -117,6 +178,7 @@ async function handleConnection(socket: WebSocket): Promise<void> {
     let closed = false;
     let lastAction: ActionMessage["action"] | null = null;
     let lastActionAt = Date.now();
+    let spectateCounter = 0;
 
     const onMessage = (data: WebSocket.RawData) => {
       const parsed = parseHarnessMessage(String(data));
@@ -162,11 +224,25 @@ async function handleConnection(socket: WebSocket): Promise<void> {
           };
           await ingestOfficialResult(agentName, result);
           safeSend(socket, result);
+          broadcastSpectate({
+            type: "spectate_result",
+            match_id: matchId,
+            agent: agentName,
+            status: result.status,
+            scores: result.scores,
+            elo_delta: result.elo_delta,
+          });
           break;
         }
 
         const state = snapshotToState(snapshot, matchId, snapshot.tick, { mode });
         safeSend(socket, state);
+
+        spectateCounter += 1;
+        const emitSpectate = mode === "vla" || spectateCounter % SPECTATE_STATE_EVERY === 0;
+        if (emitSpectate) {
+          broadcastSpectate(snapshotToSpectateFrame(snapshot, matchId, agentName, mode));
+        }
 
         if (Date.now() - lastActionAt > actionTimeout) {
           lastAction = lastAction ?? {
@@ -198,6 +274,7 @@ async function handleConnection(socket: WebSocket): Promise<void> {
     }
   } finally {
     matchBusy = false;
+    broadcastSpectate({ type: "spectate_idle", busy: false });
   }
 }
 
