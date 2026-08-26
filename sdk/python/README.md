@@ -52,4 +52,4 @@ export VSARENA_HARNESS_URL=wss://vsarena-harness.onrender.com
 python -c "from vsarena import ColorSeek, run_match; print(run_match(ColorSeek(), dry_run=False, mode='vla'))"
 ```
 
-Protocol: [docs/harness.md](../../docs/harness.md)
+Protocol: [docs/harness.md](../../docs/harness.md) · Eval integrity: [docs/eval-integrity.md](../../docs/eval-integrity.md)

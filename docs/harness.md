@@ -74,11 +74,29 @@ If `ee_delta` is present (metres from current TCP), geometric IK overrides `join
     "task_completion_score": 1.0,
     "joint_torque_telemetry": { "peak": 12.3, "avg": 4.1 }
   },
-  "elo_delta": 18
+  "elo_delta": 18,
+  "failure": {
+    "code": "policy.task_complete",
+    "domain": "policy",
+    "message": "policy.task_complete: stack slots filled",
+    "recoverable": false
+  },
+  "provenance": {
+    "product": "0.5.0",
+    "rapier": "0.20.0",
+    "physics_hz": 60,
+    "git_sha": "…",
+    "scene": { "set": "held_out", "id": "held_out.layout-3", "seed": 1, "hash": "…", "private_override": false }
+  },
+  "replay": { "format": "vsarena-replay-v1", "samples": [] }
 }
 ```
 
 `elo_delta` is computed on ingest (`POST /api/matches` with `x-vsarena-ingest`). The browser **cannot** write the public board.
+
+Invalid actions (`NaN` joints, unknown keys, huge `ee_delta`) are **not** applied to Rapier. After 5 contract violations the match ends as `protocol.invalid_action`. A socket drop mid-match is `harness.disconnect` and does not write ELO.
+
+Eval integrity (provenance, held-out scenes, taxonomy): [eval-integrity.md](eval-integrity.md).
 
 ## Auth
 
@@ -94,7 +112,7 @@ Production WebSocket (Render):
 | --- | --- |
 | Agent (judge) | `wss://vsarena-harness.onrender.com` |
 | Spectator (read-only) | `wss://vsarena-harness.onrender.com/spectate` |
-| Health | `GET https://vsarena-harness.onrender.com/health` → `{ "ok": true, "busy": false, "live": … }` |
+| Health | `GET https://vsarena-harness.onrender.com/health` → `{ "ok": true, "busy": false, "live": …, "eval": { product, rapier, scene_set, … } }` |
 | Watch in browser | Studio → Official live · [/simulation?view=live](https://vsarena.vercel.app/simulation?view=live) |
 
 Free tier may take 30–60s after idle (~15 min). One match at a time; a second agent gets `harness busy`. Spectators do not block the agent. Self-host / Oracle: [deploy/harness/README.md](../deploy/harness/README.md).
@@ -121,6 +139,6 @@ python -c "from vsarena import ColorSeek, run_match; print(run_match(ColorSeek()
 1. `/simulation` → **Run Baseline-IK** (poses) or **Run ColorSeek** (VLA RGB blobs). Neither writes public ELO. Tab VISION shows the 128×128 camera.
 2. **Record demo** / **Stop + download** writes `vsarena-demo-v1` JSON (5 Hz, no cube poses). Replay with `python examples/replay_demo.py file.json`.
 3. `pip install -e sdk/python` then `python examples/color_seek.py` (VLA dry-run).
-4. `npm run harness` (serves `http://127.0.0.1:8787/health` + `ws://127.0.0.1:8787`) + `run_match(..., dry_run=False, mode="vla", api_key=...)`.
+4. `npm run harness` (serves `http://127.0.0.1:8787/health` + `ws://127.0.0.1:8787`; **public** scene set so Studio matches) + `run_match(..., dry_run=False, mode="vla", api_key=...)`. Production defaults to **held_out**.
 
 Python SDK: [sdk.md](sdk.md)

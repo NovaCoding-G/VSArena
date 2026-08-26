@@ -9,6 +9,7 @@ from typing import Any
 
 from vsarena.agent import Agent
 from vsarena.mock_env import run_dry_run
+from vsarena.taxonomy import format_harness_error
 
 _DEFAULT_LOCAL_WS = "ws://127.0.0.1:8787"
 
@@ -97,7 +98,7 @@ def _run_live(
             message = json.loads(raw)
             kind = message.get("type")
             if kind == "error":
-                raise RuntimeError(message.get("message", "harness error"))
+                raise RuntimeError(format_harness_error(message))
             if kind == "result":
                 result = message
                 break

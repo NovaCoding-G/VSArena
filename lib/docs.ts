@@ -101,5 +101,12 @@ export const PROTOCOL_RESULT = `{
     "task_completion_score": 1.0,
     "joint_torque_telemetry": { "peak": 12.3, "avg": 4.1 }
   },
-  "elo_delta": 18
+  "elo_delta": 18,
+  "failure": {
+    "code": "policy.task_complete",
+    "domain": "policy",
+    "message": "policy.task_complete: stack slots filled",
+    "recoverable": false
+  },
+  "provenance": { "product": "0.5.0", "rapier": "0.20.0", "physics_hz": 60, "git_sha": "…" }
 }`;

@@ -26,6 +26,7 @@ import {
   TABLE_HALF_EXTENTS,
   TABLE_TOP_Y,
   TABLE_WALLS,
+  type BlockSpawnDesc,
 } from "./constants";
 import { attachBlockToGripper, findGraspTarget, followGripper, releaseHeldBlock } from "./grasp";
 import { KEY_BINDINGS } from "./input";
@@ -94,9 +95,11 @@ export class ArenaSimulation {
   private curr!: SimulationSnapshot;
   private events: SimEvent[] = [];
   private agentCommand: AgentCommand | null = null;
+  private readonly spawns: readonly BlockSpawnDesc[];
 
-  private constructor(world: World) {
+  private constructor(world: World, spawns: readonly BlockSpawnDesc[]) {
     this.world = world;
+    this.spawns = spawns;
     this.rebuildScene();
   }
 
@@ -105,11 +108,12 @@ export class ArenaSimulation {
    *
    * @example const sim = await ArenaSimulation.create();
    */
-  static async create(): Promise<ArenaSimulation> {
+  static async create(options?: { spawns?: readonly BlockSpawnDesc[] }): Promise<ArenaSimulation> {
     await RAPIER.init();
     const world = new RAPIER.World({ x: 0, y: GRAVITY_Y, z: 0 });
     world.timestep = FIXED_DT;
-    return new ArenaSimulation(world);
+    const spawns = options?.spawns ?? BLOCK_SPAWNS;
+    return new ArenaSimulation(world, spawns);
   }
 
   /** Drain sim events (grasp / release / reset / panic) for the HUD log. */
@@ -458,7 +462,7 @@ export class ArenaSimulation {
       this.gripperBody,
     );
 
-    for (const spawn of BLOCK_SPAWNS) {
+    for (const spawn of this.spawns) {
       const desc = RAPIER.RigidBodyDesc.dynamic()
         .setTranslation(spawn.position[0], spawn.position[1], spawn.position[2])
         .setCcdEnabled(true)
@@ -483,7 +487,7 @@ export class ArenaSimulation {
   }
 
   private capture(arm: ArmSnapshot): SimulationSnapshot {
-    const blocks: BlockState[] = BLOCK_SPAWNS.map((spawn) => {
+    const blocks: BlockState[] = this.spawns.map((spawn) => {
       const body = this.blockBodies.get(spawn.id);
       if (!body) {
         return {

@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/i18n/locale";
 
 const en = {
   nav: {
-    studio: "Studio v0.2.0",
+    studio: "Studio v0.5.0",
     live: "Live",
     arena: "Arena",
     leaderboard: "Leaderboard",
@@ -34,10 +34,10 @@ const en = {
     privacy: "Privacy",
   },
   landing: {
-    kicker: "Studio v0.2.0 live",
+    kicker: "Studio v0.5.0 live",
     h1: "Test an embodied policy on a stacking task.",
     lead: "Watch a run in Chrome, submit your agent over a small protocol, and get a score. The 1v1 Arena is not built yet.",
-    ctaStudio: "Open Studio v0.2.0",
+    ctaStudio: "Open Studio v0.5.0",
     ctaSubmit: "Submit an agent",
     preview: "preview",
     previewFoot: "Stacking work-cell · VLA cam 128×128",
@@ -62,7 +62,7 @@ const en = {
     howKicker: "How it works",
     howH2: "Three steps. Same physics.",
     how1Title: "Watch",
-    how1Body: "Open Studio v0.2.0. A 4-DOF arm, three cubes, a pad. Keyboard teleop if you want to try the task.",
+    how1Body: "Open Studio v0.5.0. A 4-DOF arm, three cubes, a pad. Keyboard teleop if you want to try the task.",
     how2Title: "Act",
     how2Body:
       "On the VLA track the policy sees a 128×128 image and a stack instruction. Actions are joint targets or end-effector deltas.",
@@ -79,7 +79,7 @@ const en = {
     ctaH2: "Studio is open.",
     ctaBody: "Spectate in the browser. Submit a policy. 1v1 Arena comes later.",
     ctaDocs: "Docs",
-    stillStudioTitle: "Studio v0.2.0",
+    stillStudioTitle: "Studio v0.5.0",
     stillStudioBody: "Rapier table, 4-DOF arm, three cubes. Open in Chrome.",
     stillCamTitle: "VLA camera",
     stillCamBody: "128×128 RGB + a stack instruction. Cube GPS stays hidden from the policy.",
@@ -89,16 +89,16 @@ const en = {
   },
   soon: {
     badge: "Coming soon",
-    cta: "Open Studio v0.2.0",
+    cta: "Open Studio v0.5.0",
     arenaKicker: "Product",
     arenaTitle: "Arena",
-    arenaBody: "Two policies on the same stacking task, live. Not built yet. Studio v0.2.0 is the single-agent lab.",
+    arenaBody: "Two policies on the same stacking task, live. Not built yet. Studio v0.5.0 is the single-agent lab.",
     communityKicker: "People",
     communityTitle: "Community",
-    communityBody: "No forum yet. Use GitHub issues and the leaderboard, or open Studio v0.2.0.",
+    communityBody: "No forum yet. Use GitHub issues and the leaderboard, or open Studio v0.5.0.",
     eventsKicker: "Calendar",
     eventsTitle: "Events",
-    eventsBody: "No cups scheduled. Studio v0.2.0 is open in the meantime.",
+    eventsBody: "No cups scheduled. Studio v0.5.0 is open in the meantime.",
   },
   submit: {
     kicker: "Submit",
@@ -114,7 +114,7 @@ const en = {
     beginnerStepsTitle: "Do this, in order",
     beginner1Title: "Try the task yourself",
     beginner1Body:
-      "Open Studio v0.2.0. Use the keyboard (Q/A, W/S, E/D, R/F, Space). That is the same stacking job your program will attempt.",
+      "Open Studio v0.5.0. Use the keyboard (Q/A, W/S, E/D, R/F, Space). That is the same stacking job your program will attempt.",
     beginner1Cta: "Open Studio",
     beginner2Title: "Sign in and name the agent",
     beginner2Body:
@@ -173,7 +173,7 @@ const en = {
     create: "Create agent",
   },
   studio: {
-    kicker: "Studio v0.2.0",
+    kicker: "Studio v0.5.0",
     live: "Live",
     liveExpand: "Official live",
     soon: "Coming soon",
@@ -196,10 +196,10 @@ const en = {
     originH3: "Why it exists",
     originP1:
       "Embodied policies are scored in private sims. You cannot watch a failure or replay a match from a URL. VSArena is one stacking task on purpose: if people will not run this, they will not run a bigger suite.",
-    originP2: "Studio v0.2.0 is the single-agent lab. Arena (coming soon) is two agents, same physics, live.",
+    originP2: "Studio v0.5.0 is the single-agent lab. Arena (coming soon) is two agents, same physics, live.",
     whatKicker: "What it is",
     whatH3: "Studio, track, board",
-    studioTitle: "Studio v0.2.0",
+    studioTitle: "Studio v0.5.0",
     studioBody:
       "Rapier physics, a kinematic arm, three cubes, a pad. Spectate, teleop, or run in-browser demos. Record VLA demos on the same camera the policy sees.",
     trackTitle: "The track",
@@ -255,7 +255,7 @@ const en = {
     overviewStart: "Start in",
     overviewThen: ", then",
     overviewSubmit: "submit an agent",
-    overviewFiles: "Source notes: docs/sdk.md and docs/harness.md.",
+    overviewFiles: "Source notes: docs/sdk.md, docs/harness.md, and docs/eval-integrity.md.",
     quickPy: "Python 3.11+. From the repo root:",
     quickAct: "Implement act. Dry-run talks to a mock env. No API key required.",
     quickSeek: "In-repo vision baseline (color blobs, not a neural VLA):",
@@ -295,6 +295,8 @@ const en = {
       "No ELO on the board. Dry-run never writes. Live ingest needs HARNESS_INGEST_SECRET (≥16) on the app and the same value on the harness. The browser POST is rejected on purpose.",
     failHello: "Hello rejected. Sign in, copy a fresh key, register the agent name you pass as agent_name.",
     failCubes: "Empty cubes in state. That is the VLA track. Do not parse scene.blocks. Use the image and the instruction.",
+    failIntegrity:
+      "Official results include failure.code (policy vs protocol vs harness), provenance, and a sparse replay. See docs/eval-integrity.md.",
   },
   board: {
     kicker: "Public ELO",
@@ -333,7 +335,7 @@ export type Messages = typeof en;
 
 const it: Messages = {
   nav: {
-    studio: "Studio v0.2.0",
+    studio: "Studio v0.5.0",
     live: "Live",
     arena: "Arena",
     leaderboard: "Classifica",
@@ -365,7 +367,7 @@ const it: Messages = {
     privacy: "Privacy",
   },
   landing: {
-    kicker: "Studio v0.2.0 è aperto",
+    kicker: "Studio v0.5.0 è aperto",
     h1: "Quanto è bravo il tuo agente con tre cubi?",
     lead: "Apri Chrome, guarda il braccio, collega il programma. Lo scontro tra due agenti non c’è ancora.",
     ctaStudio: "Entra nello Studio",
@@ -410,7 +412,7 @@ const it: Messages = {
     ctaH2: "Provalo adesso",
     ctaBody: "Apri lo Studio o manda un agente. Lo 1 contro 1 arriverà dopo.",
     ctaDocs: "Guida",
-    stillStudioTitle: "Studio v0.2.0",
+    stillStudioTitle: "Studio v0.5.0",
     stillStudioBody: "Tavolo, braccio, tre cubi. Si apre in Chrome.",
     stillCamTitle: "Cosa vede l’agente",
     stillCamBody: "Una foto 128×128 e una frase. Le coordinate dei cubi restano nascoste.",
@@ -505,7 +507,7 @@ const it: Messages = {
     create: "Crea agente",
   },
   studio: {
-    kicker: "Studio v0.2.0",
+    kicker: "Studio v0.5.0",
     live: "Live",
     liveExpand: "Live ufficiale",
     soon: "In arrivo",
@@ -528,10 +530,10 @@ const it: Messages = {
     originH3: "Perché esiste",
     originP1:
       "Gli agenti embodied si misurano in simulatori chiusi. Non vedi un errore, non rivedi una partita da un link. VSArena è un solo esercizio, di proposito: se nessuno lancia questo, non lancerà una suite più grande.",
-    originP2: "Studio v0.2.0 è il laboratorio a un agente. L’Arena (in arrivo) sono due agenti, stessa fisica, insieme.",
+    originP2: "Studio v0.5.0 è il laboratorio a un agente. L’Arena (in arrivo) sono due agenti, stessa fisica, insieme.",
     whatKicker: "Cosa c’è",
     whatH3: "Studio, modalità, classifica",
-    studioTitle: "Studio v0.2.0",
+    studioTitle: "Studio v0.5.0",
     studioBody:
       "Fisica Rapier, un braccio, tre cubi, un pad. Guardi, muovi tu, o lanci le demo nel tab. Puoi registrare le stesse immagini che vede l’agente.",
     trackTitle: "Cosa vede l’agente",
@@ -587,7 +589,7 @@ const it: Messages = {
     overviewStart: "Parti dallo",
     overviewThen: ", poi",
     overviewSubmit: "manda un agente",
-    overviewFiles: "Note nel repo: docs/sdk.md e docs/harness.md.",
+    overviewFiles: "Note nel repo: docs/sdk.md, docs/harness.md e docs/eval-integrity.md.",
     quickPy: "Python 3.11+. Dalla cartella del repo:",
     quickAct: "Implementa act. Il dry-run parla con un ambiente finto. Non serve la chiave.",
     quickSeek: "Baseline visiva nel repo (macchie di colore, non una rete):",
@@ -627,6 +629,8 @@ const it: Messages = {
       "Niente ELO in classifica. Il dry-run non scrive mai. Per l’ingest live serve HARNESS_INGEST_SECRET (almeno 16) sull’app e lo stesso valore sull’harness. Il POST dal browser viene rifiutato apposta.",
     failHello: "Hello rifiutato. Accedi, copia una chiave nuova, registra il nome che passi come agent_name.",
     failCubes: "Cubi vuoti nello state. È la modalità VLA. Non leggere scene.blocks. Usa l’immagine e la frase.",
+    failIntegrity:
+      "I result ufficiali includono failure.code (policy vs protocol vs harness), provenance e un replay sparso. Vedi docs/eval-integrity.md.",
   },
   board: {
     kicker: "ELO pubblico",

@@ -65,7 +65,7 @@ export function DocsContent() {
             <p className="mt-4">
               {d.overviewStart}{" "}
               <Link href="/simulation" className="text-arena-cyan hover:text-white">
-                Studio v0.2.0
+                Studio v0.5.0
               </Link>
               {d.overviewThen}{" "}
               <Link href="/submit" className="text-arena-cyan hover:text-white">
@@ -164,6 +164,7 @@ export function DocsContent() {
               <li>{d.failElo}</li>
               <li>{d.failHello}</li>
               <li>{d.failCubes}</li>
+              <li>{d.failIntegrity}</li>
             </ul>
           </Section>
         </article>

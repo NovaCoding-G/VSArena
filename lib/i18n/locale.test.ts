@@ -25,6 +25,7 @@ describe("messages", () => {
     expect(Object.keys(messages.it.about)).toEqual(Object.keys(messages.en.about));
     expect(Object.keys(messages.it.studio)).toEqual(Object.keys(messages.en.studio));
     expect(Object.keys(messages.it.board)).toEqual(Object.keys(messages.en.board));
+    expect(Object.keys(messages.it.docs)).toEqual(Object.keys(messages.en.docs));
   });
 
   it("fills placeholders", () => {

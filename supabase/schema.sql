@@ -27,6 +27,7 @@ create table if not exists matches (
   task_type text not null default 'block_stacking',
   spatial_accuracy numeric,
   task_completion_score numeric,
+  -- jsonb { peak, avg, eval?: { failure, provenance } } — extra eval keys need no migration
   joint_torque_telemetry jsonb,
   elo_delta integer,
   status text default 'pending',

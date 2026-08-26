@@ -9,7 +9,7 @@
 LMArena made chat model quality visible.  
 VSArena does the same for spatial / VLA policies: watch the physics, run a policy, read the board.
 
-**[Live demo →](https://vsarena.vercel.app/simulation)** · [Leaderboard](https://vsarena.vercel.app/leaderboard) · [Studio](#-open-studio) · [Submit an agent](#-submit-an-agent-10-min) · [Protocol](docs/harness.md) · [SDK](docs/sdk.md)
+**[Live demo →](https://vsarena.vercel.app/simulation)** · [Leaderboard](https://vsarena.vercel.app/leaderboard) · [Studio](#-open-studio) · [Submit an agent](#-submit-an-agent-10-min) · [Protocol](docs/harness.md) · [Eval integrity](docs/eval-integrity.md) · [SDK](docs/sdk.md)
 
 <br/>
 
@@ -42,7 +42,7 @@ Robot policies are still scored in private sims and PDF tables. You cannot open 
 
 **VSArena is one stacking task on purpose.** Three cubes. One pad. Cyan → orange → magenta. If people will not run *this*, they will not run a bigger suite.
 
-| | Studio v0.2.0 (now) | Arena (coming) |
+| | Studio v0.5.0 (now) | Arena (coming) |
 | --- | --- | --- |
 | Agents | One policy | Two policies, same task |
 | Physics | Rapier in Chrome · 60 Hz | Same world |
@@ -56,6 +56,7 @@ Robot policies are still scored in private sims and PDF tables. You cannot open 
 - **VLA track** — 128×128 RGB + language instruction · **no cube GPS** to the policy
 - **State track** — privileged poses for debug / Baseline-IK (not the public leaderboard path)
 - **Harness** — WebSocket `state → action → result` · ingest writes ELO · browser cannot
+- **Eval integrity** — failure taxonomy, Rapier/git provenance, held-out layouts, sparse replay ([docs/eval-integrity.md](docs/eval-integrity.md))
 - **Python SDK** — `pip install -e sdk/python` · dry-run offline · live against the harness
 - **Demo recorder** — same VLA observation stream as the harness (`vsarena-demo-v1`)
 
@@ -116,6 +117,8 @@ Watch live (read-only): Studio → Official live ([/simulation?view=live](https:
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin (OG, sitemap) — production: `https://vsarena.vercel.app` |
 | `NEXT_PUBLIC_LEGAL_CONTROLLER` | Public handle (e.g. `NovaCoding-G`) |
 | `NEXT_PUBLIC_LEGAL_EMAIL` | Privacy contact |
+| `VSARENA_SCENE_SET` | Harness: `public` or `held_out` (prod defaults `held_out`) |
+| `VSARENA_HELD_OUT_JSON` | Optional private 3-cube JSON on the harness host |
 
 Apply `supabase/schema.sql` once. Enable GitHub OAuth; add redirect URLs:
 
@@ -200,6 +203,7 @@ app/            Next.js App Router (site, Studio, API)
 components/     UI + R3F scene (no physics logic)
 simulation/     Rapier world, FK/IK, grasp, constants
 lib/harness/    Protocol codec + in-browser match loop
+lib/eval/       Provenance, taxonomy, held-out scenes, replay
 lib/scoring/    Pure scoring + ELO
 lib/vision/     128×128 VLA raster + blobs
 lib/agents/     Baseline-IK · ColorSeek
@@ -237,6 +241,7 @@ Format `vsarena-demo-v1`: VLA frames at 5 Hz · joints / `ee_delta` / gripper ·
 - [x] EN / IT UI  
 - [x] Public site on Vercel ([vsarena.vercel.app](https://vsarena.vercel.app))  
 - [x] Hosted harness deploy kit ([deploy/harness](deploy/harness) — Render trial + Oracle Docker)  
+- [x] Eval integrity v0.5.0 ([docs/eval-integrity.md](docs/eval-integrity.md) — taxonomy, provenance, held-out, replay)  
 - [ ] PyPI `vsarena`  
 - [ ] Arena 1v1  
 - [ ] More tasks (spoilers in Studio: color sort, peg-in-hole, push-to-zone)

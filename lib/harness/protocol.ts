@@ -63,6 +63,15 @@ export interface ResultMessage {
     joint_torque_telemetry: { peak: number; avg: number };
   };
   elo_delta: number;
+  /** Published taxonomy — policy vs protocol vs harness. */
+  failure?: {
+    code: string;
+    domain: string;
+    message: string;
+    recoverable: boolean;
+  };
+  provenance?: object;
+  replay?: object;
 }
 
 export interface HelloMessage {
@@ -78,6 +87,9 @@ export interface ErrorMessage {
   type: "error";
   message: string;
   recoverable: boolean;
+  /** Dotted taxonomy code, e.g. harness.busy */
+  code?: string;
+  domain?: string;
 }
 
 export type HarnessMessage = StateMessage | ActionMessage | ResultMessage | HelloMessage | ErrorMessage;

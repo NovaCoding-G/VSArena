@@ -7,5 +7,17 @@ from vsarena.agent import Agent
 from vsarena.client import run_match
 from vsarena.color_seek import ColorSeek
 from vsarena.dataset import ReplayAgent, load_episode
+from vsarena.taxonomy import FAILURE_CODES, format_harness_error, parse_action_contract
 
-__all__ = ["Agent", "ColorSeek", "ReplayAgent", "load_episode", "run_match"]
+__version__ = "0.5.0"
+
+__all__ = [
+    "FAILURE_CODES",
+    "Agent",
+    "ColorSeek",
+    "ReplayAgent",
+    "format_harness_error",
+    "load_episode",
+    "parse_action_contract",
+    "run_match",
+]

@@ -74,4 +74,4 @@ print(run_match(ReplayAgent(episode), dry_run=True, ticks=len(episode["frames"])
 
 Format `vsarena-demo-v1`: one JSON object, `frames[].images.scene` same as the harness (`mime: image/rgb8`). Not LeRobot parquet yet — convert downstream if you train ACT/diffusion.
 
-Protocol: [harness.md](harness.md)
+Protocol: [harness.md](harness.md) · Eval integrity: [eval-integrity.md](eval-integrity.md)

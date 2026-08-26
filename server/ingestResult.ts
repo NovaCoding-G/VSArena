@@ -25,7 +25,17 @@ export async function ingestOfficialResult(agent: string, result: ResultMessage)
         type: "result",
         match_id: result.match_id,
         status: result.status,
-        scores: result.scores,
+        scores: {
+          spatial_accuracy: result.scores.spatial_accuracy,
+          task_completion_score: result.scores.task_completion_score,
+          joint_torque_telemetry: {
+            peak: result.scores.joint_torque_telemetry.peak,
+            avg: result.scores.joint_torque_telemetry.avg,
+            ...(result.failure && result.provenance
+              ? { eval: { failure: result.failure, provenance: result.provenance } }
+              : {}),
+          },
+        },
         agent,
       }),
     });

@@ -79,6 +79,12 @@ export const BLOCK_SPAWNS = [
   },
 ] as const;
 
+export type BlockSpawnDesc = {
+  id: string;
+  position: [number, number, number];
+  color: string;
+};
+
 /** Landing pad XY for a 3-cube tower (cyan base → orange → magenta). */
 export const STACK_ORIGIN: [number, number, number] = [0.48, TABLE_TOP_Y, 0.22];
 
