@@ -1,0 +1,76 @@
+# Posts repo events to Discord via incoming webhook (secret: DISCORD_WEBHOOK_URL).
+
+name: Discord notify
+
+on:
+  push:
+    branches: [main, master]
+  release:
+    types: [published]
+  pull_request:
+    types: [opened, closed]
+
+concurrency:
+  group: discord-notify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.action == 'opened' ||
+      (github.event.action == 'closed' && github.event.pull_request.merged == true)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Push to main
+        if: github.event_name == 'push'
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          nodetail: true
+          title: "Push to ${{ github.ref_name }}"
+          description: |
+            **${{ github.actor }}** pushed to `${{ github.ref_name }}`
+            ```
+            ${{ github.event.head_commit.message }}
+            ```
+          url: ${{ github.event.head_commit.url }}
+          color: 0x00aeef
+
+      - name: Release published
+        if: github.event_name == 'release'
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          nodetail: true
+          title: "Release ${{ github.event.release.tag_name }}"
+          description: |
+            **${{ github.event.release.name }}**
+            ${{ github.event.release.body }}
+          url: ${{ github.event.release.html_url }}
+          color: 0xe11d8f
+
+      - name: PR opened
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          nodetail: true
+          title: "PR opened: ${{ github.event.pull_request.title }}"
+          description: |
+            **${{ github.event.pull_request.user.login }}** → `${{ github.base_ref }}`
+          url: ${{ github.event.pull_request.html_url }}
+          color: 0xf7941e
+
+      - name: PR merged
+        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          nodetail: true
+          title: "PR merged: ${{ github.event.pull_request.title }}"
+          description: |
+            **${{ github.event.pull_request.user.login }}** merged into `${{ github.base_ref }}`
+          url: ${{ github.event.pull_request.html_url }}
+          color: 0x22c55e
