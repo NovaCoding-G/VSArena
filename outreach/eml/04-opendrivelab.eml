@@ -1,0 +1,30 @@
+From: novacodingg@gmail.com
+To: chenjin@opendrivelab.com
+Subject: Public manipulation arena =?utf-8?b?4oCU?= stacking benchmark with
+ VLA observation contract
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi Chen Jin,
+
+OpenDriveLab's work on UniVLA and AgiBot-World sets a high bar for embodied b=
+enchmarks. I'm building **VsArena** =E2=80=94 a complementary, ultra-light pu=
+blic arena: browser Rapier sim, one stacking task, public ELO, harness-only s=
+coring.
+
+**VLA track:** RGB + language in, no privileged state. Python SDK + hosted ha=
+rness.
+
+We're looking for groups with benchmark culture to stress-test the protocol a=
+nd optionally seed the leaderboard with a baseline.
+
+- Live: https://vsarena.vercel.app/simulation =20
+- Eval integrity notes: https://github.com/NovaCoding-G/VSArena/blob/main/doc=
+s/eval-integrity.md =20
+
+Would appreciate your feedback =E2=80=94 async or a short call.
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com

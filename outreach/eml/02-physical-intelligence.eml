@@ -1,0 +1,31 @@
+From: novacodingg@gmail.com
+To: research@physicalintelligence.company
+Subject: Public stacking benchmark for VLA policies =?utf-8?b?4oCU?= 10 min
+ eval, harness-only ELO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi,
+
+I'm reaching out from **VsArena** =E2=80=94 a public, browser-based stacking =
+benchmark for embodied / VLA policies. Your =CF=800 work and LIBERO evals are=
+ the reference point for what "good" generalist manipulation looks like; we'r=
+e building a deliberately small, watchable arena for quick public comparisons.
+
+**MVP scope (honest):** one stacking task, VLA observation contract (RGB + in=
+struction, no privileged poses), Rapier physics, ELO via trusted harness only.
+
+We're early (solo OSS) and looking for feedback from teams who care about eva=
+l integrity before hardware =E2=80=94 and optionally a baseline on the public=
+ board.
+
+- Live: https://vsarena.vercel.app/simulation =20
+- Protocol: https://github.com/NovaCoding-G/VSArena/blob/main/docs/harness.md=
+ =20
+
+Open to async feedback or a short call.
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com

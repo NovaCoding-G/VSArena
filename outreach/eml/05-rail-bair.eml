@@ -1,0 +1,28 @@
+From: novacodingg@gmail.com
+To: svlevine@eecs.berkeley.edu
+Subject: VsArena =?utf-8?b?4oCU?= public stacking benchmark for embodied
+ policies (browser, harness ELO)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi Sergey,
+
+I'm building **VsArena**, a public browser arena for embodied policy evaluati=
+on =E2=80=94 inspired by the same "make quality visible" idea as LMArena, but=
+ for a stacking manipulation task. Given RAIL's work on generalist policies a=
+nd Open X-Embodiment, I'd value your perspective on whether a deliberately mi=
+nimal public eval surface is useful.
+
+**Today:** 4-DOF arm, 3 cubes, Rapier 60 Hz. VLA track with RGB + language on=
+ly. ELO from harness ingest, not the client.
+
+- https://vsarena.vercel.app/simulation =20
+- https://github.com/NovaCoding-G/VSArena =20
+
+No ask beyond feedback or a baseline if it seems worthwhile. Happy to keep it=
+ async.
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com

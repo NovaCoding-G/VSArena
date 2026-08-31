@@ -1,0 +1,11 @@
+wave_id,rank,organization,type,contact_name,email,variant,mx_verified,mx_provider,notes
+1,1,Hugging Face LeRobot,OSS company,Rémi Cadène,remi.cadene@huggingface.co,B,yes,Google Workspace,CONTRIBUTING.md lists this address
+1,2,Physical Intelligence,Startup,Research team,research@physicalintelligence.company,B,yes,Google Workspace,Listed on pi.website blog
+1,3,OpenVLA team,Academic lab,Moo Jin Kim,moojink@stanford.edu,A,yes,Stanford (Proofpoint),Paper correspondence address
+1,4,OpenDriveLab,Academic lab,Chen Jin,chenjin@opendrivelab.com,A,yes,Feishu/Lark,Manipulation track organizer
+1,5,RAIL Berkeley,Academic lab,Sergey Levine,svlevine@eecs.berkeley.edu,A,yes,Google Workspace,rail.eecs.berkeley.edu/contact
+1,6,Stanford ILIAD,Academic lab,Dorsa Sadigh,dorsa@cs.stanford.edu,A,yes,Stanford CS mail,dorsa.fyi
+1,7,CMU IAM Lab,Academic lab,Oliver Kroemer,okroemer@andrew.cmu.edu,A,yes,Google Workspace,CMU faculty directory
+1,8,Imperial Robot Learning Lab,Academic lab,Edward Johns,e.johns@imperial.ac.uk,A,yes,Microsoft 365,robot-learning.uk
+1,9,MIT Robot Locomotion,Academic lab,Russ Tedrake,russt@csail.mit.edu,A,yes,MIT CSAIL,incoming.csail.mit.edu
+1,10,Voxel51,Company,General inquiry,info@voxel51.com,B,yes,Google Workspace,GitHub org profile

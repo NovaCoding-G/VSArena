@@ -1,0 +1,21 @@
+wave_id,rank,organization,type,contact_name,email,variant,channel,notes
+2,11,Skild AI,Startup,General,admin@skild.ai,B,email,General-purpose robotic intelligence
+2,12,Toyota Research Institute,Corporate R&D,Comms,comms@tri.global,B,email,Manipulation + OpenVLA ecosystem
+2,13,Pollen Robotics,OSS company,General,contact@pollen-robotics.com,B,email,Hugging Face / Reachy community
+2,14,Mimic Robotics,Startup EU,Leadership,,B,linkedin,No public email — use LinkedIn
+2,15,1X Technologies,Startup humanoid,AI team,ai@1xtechnologies.com,B,email,Intelligence systems division
+2,16,Sunrise Robotics,Startup EU,Founder,,B,linkedin,Simulation-first — Tomaz Stolfa
+2,17,Genesis AI,Startup EU,Press,press@genesis-ai.company,B,email,Paris robotics
+2,18,Covariant,Startup,Support,support@covariant.ai,B,email,Warehouse manipulation AI
+2,19,Robotics and AI Institute,Research institute,General,web-terms@rai-inst.com,B,email,Ex Boston Dynamics AI Institute
+2,20,Antioch,Sim platform,General,,B,website,Cloud sim via Nebius — contact via site
+3,21,IIT AMI,Lab IT,Contact form,,C,form,https://ami.iit.it/it/contacts
+3,22,AIRLab Polimi,Lab IT,Andrea Bonarini,andrea.bonarini@polimi.it,C,email,Leonardo Robotics Labs
+3,23,NEARLab Polimi,Lab IT,Elena De Momi,elena.demomi@polimi.it,C,email,Medical/social robotics
+3,24,BioRobotics Sant Anna,Lab IT,Innovation,innovazionebiorobotica@santannapisa.it,C,email,Manipulation + surgical
+3,25,IAS Sant Anna,Lab IT,Carlo Alberto Avizzano,carloalberto.avizzano@santannapisa.it,C,email,Robot learning + sim
+3,26,LENAI CNR,Lab IT,Gianluca Baldassarre,,C,website,Embodied AI Roma
+3,27,NOI UniBZ,Lab IT,Lab,info@noi.bz.it,C,email,Embodied AI Bolzano
+3,28,UniFI HRI Lab,Lab IT,DIEF,,C,website,Collaborative robots + AI
+3,29,ETH Soft Robotics,Lab EU,Robert Katzschmann,,C,phone,+41 44 632 22 40
+3,30,Monash VL4AI,Lab AU,Hamid Rezatofighi,,C,website,Vision-language embodied AI

@@ -1,0 +1,29 @@
+From: novacodingg@gmail.com
+To: dorsa@cs.stanford.edu
+Subject: VsArena =?utf-8?b?4oCU?= watchable public eval for VLA / manipulation
+ policies
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi Dorsa,
+
+Your work on trustworthy embodied AI (and co-authorship on OpenVLA) aligns cl=
+osely with what we're trying to validate with **VsArena** =E2=80=94 a public =
+stacking benchmark where scores are harness-written and failures are watchabl=
+e in the browser.
+
+**MVP:** one task, VLA observation contract without privileged poses, Python =
+SDK, public ELO board.
+
+I'd appreciate feedback on eval integrity and whether this is a useful steppi=
+ng stone before hardware trials =E2=80=94 especially from groups thinking abo=
+ut safe, verifiable policy comparison.
+
+- Studio: https://vsarena.vercel.app/simulation =20
+- Integrity docs: https://github.com/NovaCoding-G/VSArena/blob/main/docs/eval=
+-integrity.md =20
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com

@@ -1,0 +1,28 @@
+From: novacodingg@gmail.com
+To: okroemer@andrew.cmu.edu
+Subject: Public stacking benchmark =?utf-8?b?4oCU?= browser sim + harness ELO
+ for manipulation policies
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi Oliver,
+
+Given your contributions to Open X-Embodiment and lifelong manipulation learn=
+ing, I wanted to share **VsArena** =E2=80=94 a public, browser-based stacking=
+ eval for embodied policies.
+
+**Design choices:** minimal task (3 cubes), Rapier physics, VLA track (RGB + =
+language, no cube GPS), trusted harness ingest for leaderboard rows.
+
+We're early and looking for feedback from manipulation researchers =E2=80=94 =
+and optionally a baseline policy on the public board.
+
+- https://vsarena.vercel.app/simulation =20
+- https://vsarena.vercel.app/submit =20
+
+Happy to discuss async or on a short call.
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com

@@ -1,0 +1,26 @@
+From: novacodingg@gmail.com
+To: e.johns@imperial.ac.uk
+Subject: VsArena =?utf-8?b?4oCU?= public stacking arena for VLA / manipulation
+ policy eval
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi Edward,
+
+Your Robot Learning Lab's focus on manipulation with imitation learning and V=
+LMs is exactly the audience for **VsArena** =E2=80=94 a public browser arena =
+with one stacking task, watchable physics, and ELO from a trusted harness.
+
+**VLA track:** 128=C3=97128 RGB + instruction; no privileged cube state to th=
+e policy.
+
+I'd love your take on whether this is a useful lightweight eval before sim-to=
+-real =E2=80=94 and welcome any baseline submission.
+
+- https://vsarena.vercel.app/simulation =20
+- https://github.com/NovaCoding-G/VSArena =20
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com

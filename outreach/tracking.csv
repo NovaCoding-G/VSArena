@@ -1,0 +1,11 @@
+id,wave,rank,organization,contact_email,subject,sent_date,status,response_date,response_type,followup_date,notes
+1,1,1,Hugging Face LeRobot,remi.cadene@huggingface.co,VsArena — lightweight public eval complement to LeRobot / LIBERO,,eml_ready,,,2026-09-07,Variant B
+2,1,2,Physical Intelligence,research@physicalintelligence.company,Public stacking benchmark for VLA policies — 10 min eval harness-only ELO,,eml_ready,,,2026-09-07,Variant B
+3,1,3,OpenVLA team,moojink@stanford.edu,VsArena — public stacking eval for OpenVLA-style policies,,eml_ready,,,2026-09-07,Variant A
+4,1,4,OpenDriveLab,chenjin@opendrivelab.com,Public manipulation arena — stacking benchmark with VLA observation contract,,eml_ready,,,2026-09-07,Variant A
+5,1,5,RAIL Berkeley,svlevine@eecs.berkeley.edu,VsArena — public stacking benchmark for embodied policies browser harness ELO,,eml_ready,,,2026-09-07,Variant A
+6,1,6,Stanford ILIAD,dorsa@cs.stanford.edu,VsArena — watchable public eval for VLA manipulation policies,,eml_ready,,,2026-09-07,Variant A
+7,1,7,CMU IAM Lab,okroemer@andrew.cmu.edu,Public stacking benchmark — browser sim + harness ELO for manipulation policies,,eml_ready,,,2026-09-07,Variant A
+8,1,8,Imperial Robot Learning Lab,e.johns@imperial.ac.uk,VsArena — public stacking arena for VLA manipulation policy eval,,eml_ready,,,2026-09-07,Variant A
+9,1,9,MIT Robot Locomotion,russt@csail.mit.edu,VsArena — public stacking benchmark browser harness VLA observation contract,,eml_ready,,,2026-09-07,Variant A
+10,1,10,Voxel51,info@voxel51.com,VsArena × Physical AI — public manipulation eval + dataset/debug workflow,,eml_ready,,,2026-09-07,Variant B

@@ -1,0 +1,32 @@
+From: novacodingg@gmail.com
+To: remi.cadene@huggingface.co
+Subject: VsArena =?utf-8?b?4oCU?= lightweight public eval complement to
+ LeRobot / LIBERO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi R=C3=A9mi,
+
+I'm building **VsArena**, a public browser arena for embodied / VLA policy ev=
+aluation =E2=80=94 one stacking task, watchable physics, ELO on a public boar=
+d. Given LeRobot's role as the hub for real-world robotics ML (and LIBERO int=
+egration), I thought you'd be the right person to sanity-check whether this f=
+ills a gap.
+
+**Today:** 4-DOF arm, 3 cubes, Rapier 60 Hz. VLA track =3D 128=C3=97128 RGB +=
+ language, no cube GPS. Scores only via harness ingest.
+
+It could complement LeRobot as a **zero-install public scoreboard** for quick=
+ policy comparisons before heavier sim evals.
+
+- Studio: https://vsarena.vercel.app/simulation =20
+- Submit: https://vsarena.vercel.app/submit =20
+- SDK: https://github.com/NovaCoding-G/VSArena/tree/main/sdk/python =20
+
+Would love your take on the protocol =E2=80=94 or a LeRobot policy baseline o=
+n the board. Happy to chat 15 min or async on GitHub.
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com

@@ -1,0 +1,25 @@
+From: novacodingg@gmail.com
+To: info@voxel51.com
+Subject: VsArena =?utf-8?q?=C3=97_Physical_AI_=E2=80=94?= public manipulation
+ eval + dataset/debug workflow
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi Voxel51 team,
+
+We're building **VsArena**, a public browser arena for embodied policy evalua=
+tion (stacking task, harness ELO, VLA observation contract). With FiftyOne's =
+Physical AI Workbench gaining traction for robotics data QA, I wonder if ther=
+e's a natural complement: VsArena for **lightweight public policy scores**, F=
+iftyOne for **failure analysis on trajectories**.
+
+**Today:** Rapier browser sim, Python SDK, public leaderboard at https://vsar=
+ena.vercel.app/leaderboard.
+
+Looking for feedback from teams at the sim/eval layer =E2=80=94 and open to e=
+xploring whether a small integration story makes sense.
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com =C2=B7 https://github.com/NovaCoding-G/VSArena

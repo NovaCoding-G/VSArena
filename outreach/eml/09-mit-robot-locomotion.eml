@@ -1,0 +1,24 @@
+From: novacodingg@gmail.com
+To: russt@csail.mit.edu
+Subject: VsArena =?utf-8?b?4oCU?= public stacking benchmark (browser harness,
+ VLA observation contract)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi Russ,
+
+I'm building **VsArena**, a public stacking benchmark for embodied / VLA poli=
+cies =E2=80=94 browser Rapier sim, harness-only ELO, VLA observation contract=
+ (RGB + language, no privileged poses). Given your work on OpenVLA and mergin=
+g learning with manipulation, I'd value a quick sanity check on the protocol.
+
+- Live: https://vsarena.vercel.app/simulation =20
+- Protocol: https://github.com/NovaCoding-G/VSArena/blob/main/docs/harness.md=
+ =20
+
+Async feedback is great; happy to do 15 min if easier.
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com

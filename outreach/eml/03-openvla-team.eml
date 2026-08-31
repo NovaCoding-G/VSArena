@@ -1,0 +1,31 @@
+From: novacodingg@gmail.com
+To: moojink@stanford.edu
+Subject: VsArena =?utf-8?b?4oCU?= public stacking eval for OpenVLA-style
+ policies
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi Moo Jin,
+
+Congratulations again on OpenVLA's traction =E2=80=94 it's become the default=
+ open VLA baseline. I'm building **VsArena**, a public browser arena where ma=
+nipulation policies get scored on a simple stacking task with a VLA-aligned o=
+bservation contract (128=C3=97128 RGB + language, no cube poses to the policy=
+).
+
+The goal is LMArena-style visibility for spatial policies: open URL, watch fa=
+ilures, compare ELO. Harness-only ingest so the board stays honest.
+
+Would you be open to trying a fine-tuned OpenVLA (or OFT) baseline on our boa=
+rd, or sharing feedback on the protocol? One task on purpose =E2=80=94 if tea=
+ms won't run this, they won't run a bigger suite.
+
+- Studio: https://vsarena.vercel.app/simulation =20
+- Submit: https://vsarena.vercel.app/submit =20
+
+Happy to send more detail or jump on a 15-min call.
+
+Best, =20
+NovaCoding-G =20
+novacodingg@gmail.com
