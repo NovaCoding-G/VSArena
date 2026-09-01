@@ -4,10 +4,10 @@ import type { LegalDocument } from "@/lib/legal/types";
 const it: LegalDocument = {
   kicker: "Termini",
   title: "Termini e condizioni di utilizzo",
-  updatedLine: "Ultimo aggiornamento: 21 agosto 2026. Versione 1.0.",
+  updatedLine: "Ultimo aggiornamento: 1 settembre 2026. Versione 1.1.",
   intro: [
     "Questi termini regolano l’uso del sito VSArena, dello Studio, dell’SDK, dell’harness e della classifica (insieme, il «Servizio»). Usando il Servizio dichiari di averli letti e di accettarli.",
-    "Il prestatore è {controller}, persona fisica (il «Prestatore»). VSArena non è una società costituita: è, per il momento, un progetto open source. Non c’è partita IVA di società, né iscrizione al registro delle imprese riferita a VSArena. Contatti: {email} — repository {github}.",
+    "Il prestatore è {controller}, persona fisica (il «Prestatore»), founder del laboratorio indipendente {org}. VSArena non è una società costituita: è un progetto open source pubblicato sotto l’organizzazione GitHub {org}. Non c’è partita IVA di società, né iscrizione al registro delle imprese riferita a VSArena o a {org}. Contatti: {email} — repository {github}.",
     "Il Servizio è un MVP gratuito per ricerca, studio e confronto di agenti. Non è un sistema di controllo di robot reali e non offre SLA. Se il progetto diventerà una società, questi termini saranno aggiornati.",
   ],
   sections: [
@@ -31,7 +31,7 @@ const it: LegalDocument = {
       title: "2. Oggetto e gratuità",
       blocks: [
         {
-          p: "Il Prestatore mette a disposizione, a titolo gratuito, un ambiente di prova per agenti embodied su un compito di stacking, con protocollo documentato e, quando l’harness è configurato, una classifica pubblica. Chi offre il Servizio è una persona fisica nell’ambito di un progetto open source, non una società.",
+          p: "Il Prestatore mette a disposizione, a titolo gratuito, un ambiente di prova per agenti embodied su un compito di stacking, con protocollo documentato e, quando l’harness è configurato, una classifica pubblica. Chi offre il Servizio è una persona fisica, founder del laboratorio indipendente {org}: non una società costituita.",
         },
         {
           p: "Non è inclusa la conduzione di un robot fisico, l’hosting della tua GPU, la pubblicazione su PyPI, né l’Arena 1 contro 1 finché non è dichiarata disponibile sul sito. Funzioni segnate «in arrivo» non fanno parte del contratto attuale.",
@@ -195,10 +195,10 @@ const it: LegalDocument = {
 const en: LegalDocument = {
   kicker: "Terms",
   title: "Terms of use",
-  updatedLine: "Last updated: 21 August 2026. Version 1.0.",
+  updatedLine: "Last updated: 1 September 2026. Version 1.1.",
   intro: [
     "These terms govern use of the VSArena site, Studio, SDK, harness and leaderboard (the “Service”). By using the Service you confirm you have read and accept them.",
-    "The provider is {controller}, a natural person (the “Provider”). VSArena is not an incorporated company: for now it is an open-source project. There is no company VAT number and no companies-register filing for VSArena. Contact: {email} — repository {github}.",
+    "The provider is {controller}, a natural person (the “Provider”) and founder of the independent lab {org}. VSArena is not an incorporated company: it is an open-source project published under the {org} GitHub organization. There is no company VAT number and no companies-register filing for VSArena or {org}. Contact: {email} — repository {github}.",
     "The Service is a free research MVP. It is not a real-robot controller and it has no SLA. If the project later becomes a company, these terms will be updated.",
   ],
   sections: [
@@ -222,7 +222,7 @@ const en: LegalDocument = {
       title: "2. What we provide, for free",
       blocks: [
         {
-          p: "The Provider offers, free of charge, a stacking work-cell for embodied agents, a documented protocol and, when the harness is configured, a public leaderboard. The Service is offered by a natural person as an open-source project, not by a company.",
+          p: "The Provider offers, free of charge, a stacking work-cell for embodied agents, a documented protocol and, when the harness is configured, a public leaderboard. The Service is offered by a natural person, founder of the independent lab {org} — not by an incorporated company.",
         },
         {
           p: "We do not provide control of a physical robot, hosted GPU inference, a PyPI release, or 1v1 Arena until the site says it is live. “Coming soon” features are not part of this contract.",

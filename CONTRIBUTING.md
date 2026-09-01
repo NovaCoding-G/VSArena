@@ -17,7 +17,7 @@ Out of MVP scope (flag as `post-mvp` / v1.1): new task physics, server-authorita
 ## Dev setup
 
 ```bash
-git clone https://github.com/NovaCoding-G/VSArena.git
+git clone https://github.com/ONISCOR/VSArena.git
 cd VSArena
 cp .env.example .env.local   # fill Supabase + HARNESS_INGEST_SECRET
 npm install
@@ -68,4 +68,4 @@ test: ColorSeek grasp cyan
 
 See the [README](README.md#repo-map), [docs/harness.md](docs/harness.md), and [docs/sdk.md](docs/sdk.md).
 
-Questions: open a Discussion / issue, or email **novacodingg@gmail.com**.
+Questions: open a Discussion / issue, or email **arankair.dev@gmail.com**.

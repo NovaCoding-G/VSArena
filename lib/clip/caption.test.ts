@@ -39,7 +39,7 @@ describe("buildClipCaption", () => {
     expect(text).toContain("Complete 1.000");
     expect(text).toContain("ELO +18");
     expect(text).toContain("#VSArena");
-    expect(text).toContain("NovaCoding-G");
+    expect(text).toContain("ONISCOR");
     expect(text).toContain("Reels");
   });
 });

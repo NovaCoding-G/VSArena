@@ -9,12 +9,12 @@ description = "VSArena SDK — submit and dry-run embodied agents against the bl
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "NovaCoding-G" }]
+authors = [{ name = "Aran Kair", email = "arankair.dev@gmail.com" }]
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/NovaCoding-G"
-Repository = "https://github.com/NovaCoding-G/novanexus"
+Homepage = "https://github.com/ONISCOR/VSArena"
+Repository = "https://github.com/ONISCOR/VSArena"
 
 [project.optional-dependencies]
 live = ["websockets>=12.0"]

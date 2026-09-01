@@ -4,19 +4,19 @@ import type { LegalDocument } from "@/lib/legal/types";
 const it: LegalDocument = {
   kicker: "Privacy",
   title: "Informativa sul trattamento dei dati personali",
-  updatedLine: "Ultimo aggiornamento: 21 agosto 2026. Versione 1.0.",
+  updatedLine: "Ultimo aggiornamento: 1 settembre 2026. Versione 1.1.",
   intro: [
     "Questa informativa è resa ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679 (GDPR) e del D.lgs. 196/2003 come modificato dal D.lgs. 101/2018 (Codice Privacy), per chi usa il sito e i servizi VSArena.",
     "Il servizio è un MVP gratuito di ricerca e valutazione di agenti embodied. Non è un prodotto di robotica industriale e non è destinato a minori di 16 anni.",
-    "VSArena non è una società costituita, non è iscritta al registro delle imprese e non è una persona giuridica. È, per il momento, un progetto open source portato avanti da una persona fisica. Se nascerà una società, il titolare e questa informativa verranno aggiornati.",
-    "Il Titolare è identificato in pubblico con lo handle {controller} (non con nome e cognome anagrafici). Contatto: {email}. Repository: {github}.",
+    "VSArena non è una società costituita, non è iscritta al registro delle imprese e non è una persona giuridica. È un progetto open source del laboratorio indipendente {org}, portato avanti da una persona fisica. {org} è il nome del laboratorio e dell’organizzazione GitHub che ospita il repository: non è una società iscritta. Se nascerà una società, il titolare e questa informativa verranno aggiornati.",
+    "Il Titolare è identificato in pubblico come {controller}. Contatto: {email}. Repository: {github}.",
   ],
   sections: [
     {
       title: "1. Titolare del trattamento",
       blocks: [
         {
-          p: "Titolare del trattamento è {controller}, persona fisica che gestisce il progetto open source VSArena, con operatività in Italia. Non esiste una società, una S.r.l., una S.p.A. o altro ente che figuri come titolare: il trattamento è imputato alla persona fisica che mantiene il progetto. Non è nominato un Responsabile della protezione dei dati (DPO): l’obbligo di designazione di cui all’art. 37 GDPR non ricorre, in quanto non si tratta di pubblica amministrazione, non si effettua monitoraggio regolare e sistematico su larga scala, né si trattano categorie particolari di dati su larga scala.",
+          p: "Titolare del trattamento è {controller}, persona fisica founder del laboratorio indipendente {org}, che gestisce il progetto open source VSArena con operatività in Italia. Non esiste una società, una S.r.l., una S.p.A. o altro ente che figuri come titolare: il trattamento è imputato alla persona fisica che mantiene il progetto. {org} non è una persona giuridica. Non è nominato un Responsabile della protezione dei dati (DPO): l’obbligo di designazione di cui all’art. 37 GDPR non ricorre, in quanto non si tratta di pubblica amministrazione, non si effettua monitoraggio regolare e sistematico su larga scala, né si trattano categorie particolari di dati su larga scala.",
         },
         {
           p: "Per esercitare i diritti o per domande sul trattamento: apri una issue sul repository {github} oppure scrivi a {email}. Rispondiamo senza ingiustificato ritardo e, in ogni caso, entro un mese dalla ricezione, prorogabile di due mesi nei casi previsti dall’art. 12 GDPR.",
@@ -183,19 +183,19 @@ const it: LegalDocument = {
 const en: LegalDocument = {
   kicker: "Privacy",
   title: "Privacy notice",
-  updatedLine: "Last updated: 21 August 2026. Version 1.0.",
+  updatedLine: "Last updated: 1 September 2026. Version 1.1.",
   intro: [
     "This notice is provided under Articles 13 and 14 of Regulation (EU) 2016/679 (GDPR) and Italian Legislative Decree 196/2003 as amended by Legislative Decree 101/2018, for anyone who uses the VSArena site and services.",
     "The service is a free research MVP for evaluating embodied agents. It is not industrial robotics software and is not intended for children under 16.",
-    "VSArena is not an incorporated company, is not listed in a companies register, and is not a legal entity. For now it is an open-source project run by a natural person. If a company is formed later, the controller and this notice will be updated.",
-    "The controller is identified in public by the handle {controller} (not a civil first and last name). Contact: {email}. Repository: {github}.",
+    "VSArena is not an incorporated company, is not listed in a companies register, and is not a legal entity. It is an open-source project of the independent lab {org}, run by a natural person. {org} is the lab name and the GitHub organization that hosts the repository: it is not a registered company. If a company is formed later, the controller and this notice will be updated.",
+    "The controller is identified in public as {controller}. Contact: {email}. Repository: {github}.",
   ],
   sections: [
     {
       title: "1. Controller",
       blocks: [
         {
-          p: "The controller is {controller}, a natural person running the VSArena open-source project from Italy. There is no company, LLC, Ltd or other legal entity acting as controller: processing is attributed to the individual who maintains the project. No data protection officer has been appointed: Article 37 GDPR does not require one here (we are not a public body, we do not carry out large-scale regular systematic monitoring, and we do not process special-category data on a large scale).",
+          p: "The controller is {controller}, a natural person and founder of the independent lab {org}, running the VSArena open-source project from Italy. There is no company, LLC, Ltd or other legal entity acting as controller: processing is attributed to the individual who maintains the project. {org} is not a legal entity. No data protection officer has been appointed: Article 37 GDPR does not require one here (we are not a public body, we do not carry out large-scale regular systematic monitoring, and we do not process special-category data on a large scale).",
         },
         {
           p: "To exercise your rights or ask about processing: open an issue at {github} or write to {email}. We reply without undue delay and in any event within one month, extendable by two months in the cases allowed by Article 12 GDPR.",

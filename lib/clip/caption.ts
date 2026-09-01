@@ -21,7 +21,7 @@ export function buildClipCaption(input: {
       `Complete ${task_completion_score.toFixed(3)} · Spatial ${spatial_accuracy.toFixed(3)} · ELO ${eloStr}`,
     );
   }
-  lines.push(`NovaCoding-G · ${platforms}`);
+  lines.push(`ONISCOR · ${platforms}`);
   lines.push("#VSArena");
   return lines.join("\n");
 }

@@ -4,7 +4,7 @@ import { createAdminSupabase } from "@/lib/supabase/admin";
 /**
  * GitHub handle from Auth metadata, with a stable fallback.
  *
- * @example githubUsername(user) // "NovaCoding-G"
+ * @example githubUsername(user) // "arankair"
  */
 export function githubUsername(user: User): string {
   const meta = user.user_metadata ?? {};

@@ -1,6 +1,6 @@
 # Governance
 
-VSArena is an open-source MVP maintained by a single founder (**NovaCoding-G**).
+VSArena is an open-source MVP published by **[ONISCOR](https://github.com/ONISCOR)** and maintained by founder **[Aran Kair](https://github.com/arankair)**.
 
 ## Decision making
 
@@ -11,7 +11,7 @@ VSArena is an open-source MVP maintained by a single founder (**NovaCoding-G**).
 | Leaderboard moderation | Maintainer |
 | Code of Conduct enforcement | Maintainer ([CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)) |
 
-There is no company, board, or committee yet. If the project grows, this file will be updated.
+There is no incorporated company, board, or committee yet. ONISCOR is the independent lab and GitHub organization that hosts this repository. If the project grows, this file will be updated.
 
 ## Roadmap authority
 

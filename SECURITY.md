@@ -26,7 +26,7 @@ Please report vulnerabilities that affect:
 
 **Do not** open a public GitHub issue for security bugs.
 
-Email **novacodingg@gmail.com** with:
+Email **arankair.dev@gmail.com** with:
 
 1. Description and impact
 2. Steps to reproduce (or PoC)

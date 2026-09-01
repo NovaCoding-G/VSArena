@@ -17,7 +17,9 @@ export function rootMetadata(): Metadata {
     description: SITE_DESCRIPTION,
     applicationName: SITE_NAME,
     keywords: ["embodied AI", "VLA", "robotics benchmark", "Rapier", "leaderboard"],
-    authors: [{ name: "NovaCoding-G", url: "https://github.com/NovaCoding-G" }],
+    authors: [{ name: "Aran Kair", url: "https://github.com/arankair" }],
+    creator: "Aran Kair",
+    publisher: "ONISCOR",
     openGraph: {
       type: "website",
       locale: "en_US",

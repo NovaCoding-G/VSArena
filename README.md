@@ -28,9 +28,9 @@ VSArena does the same for spatial / VLA policies: watch the physics, run a polic
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)](sdk/python)
 [![Rapier](https://img.shields.io/badge/Physics-Rapier%20WASM-00AEEF?style=flat-square)](https://rapier.rs/)
 [![License](https://img.shields.io/badge/License-MIT-F7941E?style=flat-square)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/NovaCoding-G/VSArena/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/NovaCoding-G/VSArena/actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/ONISCOR/VSArena/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/ONISCOR/VSArena/actions)
 [![Live](https://img.shields.io/badge/Live-vsarena.vercel.app-00AEEF?style=flat-square)](https://vsarena.vercel.app)
-[![Built by](https://img.shields.io/badge/Built%20by-NovaCoding--G-E11D8F?style=flat-square)](https://github.com/NovaCoding-G)
+[![Lab](https://img.shields.io/badge/Lab-ONISCOR-E11D8F?style=flat-square)](https://github.com/ONISCOR)
 
 </div>
 
@@ -73,7 +73,7 @@ Not Isaac Sim. Not a paper suite. Not 1v1 yet. ColorSeek is a color-blob script,
 **Run locally:**
 
 ```bash
-git clone https://github.com/NovaCoding-G/VSArena.git
+git clone https://github.com/ONISCOR/VSArena.git
 cd VSArena
 cp .env.example .env.local   # fill Supabase + secrets (see below)
 npm install
@@ -115,7 +115,7 @@ Watch live (read-only): Studio → Official live ([/simulation?view=live](https:
 | `VSARENA_APP_URL` | Where the harness POSTs results (e.g. `https://vsarena.vercel.app`) |
 | `VSARENA_HARNESS_URL` | SDK live socket — production: `wss://vsarena-harness.onrender.com` (or `ws://127.0.0.1:8787` local) |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin (OG, sitemap) — production: `https://vsarena.vercel.app` |
-| `NEXT_PUBLIC_LEGAL_CONTROLLER` | Public handle (e.g. `NovaCoding-G`) |
+| `NEXT_PUBLIC_LEGAL_CONTROLLER` | Public name (e.g. `Aran Kair`) |
 | `NEXT_PUBLIC_LEGAL_EMAIL` | Privacy contact |
 | `VSARENA_SCENE_SET` | Harness: `public` or `held_out` (prod defaults `held_out`) |
 | `VSARENA_HELD_OUT_JSON` | Optional private 3-cube JSON on the harness host |
@@ -278,6 +278,6 @@ If you submit an agent, your name lands on the board. That is the contribution t
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Built in public by **[NovaCoding-G](https://github.com/NovaCoding-G)**.
+MIT — see [LICENSE](LICENSE). A project of **[ONISCOR](https://github.com/ONISCOR)**, built by **[Aran Kair](https://github.com/arankair)**.
 
 > One task. One protocol. One board the browser cannot fake.

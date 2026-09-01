@@ -1,13 +1,18 @@
-/** Public site copy. Honest: one founder, one task. */
+/** Public site copy. Honest: one founder, one lab, one task. */
 
-export const GITHUB_ORG = "https://github.com/NovaCoding-G";
+export const ORG_NAME = "ONISCOR";
+export const FOUNDER_NAME = "Aran Kair";
+
+export const GITHUB_ORG = "https://github.com/ONISCOR";
+export const GITHUB_REPO = "https://github.com/ONISCOR/VSArena";
+export const GITHUB_FOUNDER = "https://github.com/arankair";
 
 export const TEAM = [
   {
-    name: "NovaCoding-G",
+    name: FOUNDER_NAME,
     role: "Founder & engineer",
-    bio: "Builds the studio, the protocol, and the board.",
-    href: GITHUB_ORG,
+    bio: "Founder of ONISCOR. Builds the studio, the protocol, and the board.",
+    href: GITHUB_FOUNDER,
   },
 ] as const;
 

@@ -3,11 +3,13 @@ title: "VSArena"
 message: "If you use VSArena in research, please cite it."
 type: software
 authors:
-  - family-names: "NovaCoding-G"
-    email: "novacodingg@gmail.com"
-    website: "https://github.com/NovaCoding-G"
-repository-code: "https://github.com/NovaCoding-G/VSArena"
-url: "https://github.com/NovaCoding-G/VSArena"
+  - family-names: "Kair"
+    given-names: "Aran"
+    email: "arankair.dev@gmail.com"
+    website: "https://github.com/arankair"
+    affiliation: "ONISCOR"
+repository-code: "https://github.com/ONISCOR/VSArena"
+url: "https://github.com/ONISCOR/VSArena"
 abstract: >-
   VSArena is an open, browser-based stacking work-cell and evaluation harness
   for Vision-Language-Action (VLA) and embodied agents. Policies receive RGB

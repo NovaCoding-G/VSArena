@@ -1,14 +1,14 @@
-/** Assumption: public identity is the handle NovaCoding-G; mailbox is the Gmail below. Legal name stays off the site. */
+/** Assumption: public identity is Aran Kair; the lab/org is ONISCOR. Mailbox is the Gmail below. */
 
-import { GITHUB_ORG } from "@/lib/content";
+import { GITHUB_REPO, ORG_NAME } from "@/lib/content";
 
-export const LEGAL_UPDATED_ISO = "2026-08-21";
+export const LEGAL_UPDATED_ISO = "2026-09-01";
 
-const DEFAULT_CONTROLLER = "NovaCoding-G";
-const DEFAULT_EMAIL = "novacodingg@gmail.com";
+const DEFAULT_CONTROLLER = "Aran Kair";
+const DEFAULT_EMAIL = "arankair.dev@gmail.com";
 
 /**
- * Public display name of the controller (handle, not legal name).
+ * Public display name of the controller.
  *
  * @example legalController()
  */
@@ -29,19 +29,24 @@ export function legalEmail(): string | null {
 }
 
 export function legalGithub(): string {
-  return GITHUB_ORG;
+  return GITHUB_REPO;
+}
+
+export function legalOrg(): string {
+  return ORG_NAME;
 }
 
 export interface LegalVars {
   controller: string;
   email: string;
   github: string;
+  org: string;
   updatedIt: string;
   updatedEn: string;
 }
 
 /**
- * Values interpolated into legal copy (`{controller}`, `{email}`, `{github}`).
+ * Values interpolated into legal copy (`{controller}`, `{email}`, `{github}`, `{org}`).
  *
  * @example legalVars().controller
  */
@@ -51,13 +56,14 @@ export function legalVars(): LegalVars {
     controller: legalController(),
     email: email ?? legalGithub(),
     github: legalGithub(),
-    updatedIt: "21 agosto 2026",
-    updatedEn: "21 August 2026",
+    org: legalOrg(),
+    updatedIt: "1 settembre 2026",
+    updatedEn: "1 September 2026",
   };
 }
 
 /**
- * Replace `{controller}` / `{email}` / `{github}` in a legal string.
+ * Replace `{controller}` / `{email}` / `{github}` / `{org}` in a legal string.
  *
  * @example fillLegal("Titolare: {controller}", legalVars())
  */
@@ -65,5 +71,6 @@ export function fillLegal(template: string, vars: LegalVars): string {
   return template
     .replace(/\{controller\}/g, vars.controller)
     .replace(/\{email\}/g, vars.email)
-    .replace(/\{github\}/g, vars.github);
+    .replace(/\{github\}/g, vars.github)
+    .replace(/\{org\}/g, vars.org);
 }
