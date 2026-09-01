@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BrandMark } from "@/components/brand/BrandMark";
+import { OniscorMark } from "@/components/brand/OniscorMark";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 import { PageFrame } from "@/components/layout/PageFrame";
 import { GITHUB_ORG, TEAM } from "@/lib/content";
@@ -61,8 +61,8 @@ export function AboutContent() {
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {TEAM.map((person) => (
             <article key={person.name} className="panel flex gap-5 p-6">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/40">
-                <BrandMark decorative width={80} height={60} className="h-12 w-auto" />
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black p-1">
+                <OniscorMark decorative className="h-full w-full" width={160} height={160} />
               </div>
               <div>
                 <p className="font-semibold text-white">{person.name}</p>

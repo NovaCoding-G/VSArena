@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { ArenaBackdrop } from "@/components/brand/ArenaBackdrop";
-import { BrandMark } from "@/components/brand/BrandMark";
+import { OniscorMark } from "@/components/brand/OniscorMark";
 import { LandingHeroPreview } from "@/components/home/LandingHeroPreview";
 import { LandingReveal } from "@/components/home/LandingReveal";
 import { LandingStills } from "@/components/home/LandingStills";
 import { LandingTrust } from "@/components/home/LandingTrust";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 import { Button } from "@/components/ui/button";
-import { TEAM } from "@/lib/content";
+import { GITHUB_REPO, TEAM } from "@/lib/content";
 
 interface LandingPageProps {
   agentCount: number;
@@ -53,6 +53,11 @@ export function LandingPage({ agentCount }: LandingPageProps) {
               </Button>
               <Button asChild size="lg" variant="outline">
                 <Link href="/submit">{m.landing.ctaSubmit}</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a href={GITHUB_REPO} target="_blank" rel="noreferrer">
+                  {m.landing.ctaGithub}
+                </a>
               </Button>
             </div>
           </div>
@@ -134,8 +139,8 @@ export function LandingPage({ agentCount }: LandingPageProps) {
           </LandingReveal>
           <LandingReveal delayMs={80}>
             <article className="panel flex items-center gap-5 p-6">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/40">
-                <BrandMark decorative width={80} height={60} className="h-12 w-auto" />
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black p-1">
+                <OniscorMark decorative className="h-full w-full" width={160} height={160} />
               </div>
               <div>
                 <p className="font-semibold text-white">{TEAM[0].name}</p>
