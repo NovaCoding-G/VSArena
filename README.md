@@ -9,7 +9,7 @@
 LMArena made chat model quality visible.  
 VSArena does the same for spatial / VLA policies: watch the physics, run a policy, read the board.
 
-**[Live demo →](https://vsarena.vercel.app/simulation)** · [Leaderboard](https://vsarena.vercel.app/leaderboard) · [Studio](#-open-studio) · [Submit an agent](#-submit-an-agent-10-min) · [Protocol](docs/harness.md) · [Eval integrity](docs/eval-integrity.md) · [SDK](docs/sdk.md)
+**[Live demo →](https://vsarena.vercel.app/simulation)** · [Leaderboard](https://vsarena.vercel.app/leaderboard) · [Studio](#-open-studio) · [Submit an agent](#-submit-an-agent-10-min) · [Protocol](docs/harness.md) · [Eval integrity](docs/eval-integrity.md) · [SDK](docs/sdk.md) · [Systems paper](https://huggingface.co/spaces/AranKair/vsarena-paper)
 
 <br/>
 
